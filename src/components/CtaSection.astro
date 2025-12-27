@@ -1,0 +1,140 @@
+<section class="cta-clean">
+  <div class="container">
+    <div class="cta-layout reveal">
+      
+      <div class="cta-text">
+        <h2 class="cta-title">Asegurá lo que importa.</h2>
+        <p class="cta-description">
+          Sin trámites eternos ni letra chica. <br>
+          Cotizá online y recibí tu póliza en minutos.
+        </p>
+      </div>
+
+      <div class="cta-actions">
+        <a href="#cotizar" class="btn-white">
+          Cotizar Ahora
+        </a>
+        <a href="https://wa.me/5491112345678" target="_blank" class="btn-transparent">
+          Hablar con un asesor
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pattern-lines"></div>
+</section>
+
+<style>
+  .cta-clean {
+    position: relative;
+    background-color: var(--primary); /* Tu azul oficial */
+    padding: 5rem 0; /* Buen aire arriba y abajo */
+    overflow: hidden;
+  }
+
+  .cta-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    position: relative;
+    z-index: 2; /* Encima de la decoración */
+  }
+
+  /* TEXTOS */
+  .cta-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+
+  .cta-description {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.8); /* Blanco suave */
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  /* BOTONES */
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    flex-shrink: 0; /* Que no se aplasten */
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    background-color: #f8fafc;
+  }
+
+  .btn-transparent {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+
+  .btn-transparent:hover {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* PATRÓN DE FONDO (Muy sutil) */
+  .pattern-lines {
+    position: absolute;
+    top: 0; right: 0;
+    width: 40%;
+    height: 100%;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+    pointer-events: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .cta-layout {
+      flex-direction: column;
+      text-align: center;
+      gap: 2rem;
+    }
+
+    .cta-title { font-size: 2.2rem; }
+    
+    .cta-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .btn-white, .btn-transparent {
+      width: 100%;
+      text-align: center;
+    }
+
+    .pattern-lines { width: 100%; height: 100%; opacity: 0.5; }
+  }
+</style>

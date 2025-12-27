@@ -1,0 +1,104 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import QuoteModal from '../components/QuoteModal.astro';
+import WhatsappButton from '../components/WhatsAppButton.astro';
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Cotizá tu seguro online en segundos. Automotor, Hogar y Vida con el respaldo de las mejores compañías. Vanguardia Seguros." />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/vanguardia.png" /> <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script is:inline src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <style is:global>
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        html.has-scroll-smooth { overflow: hidden; } 
+    </style>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vanguardiaseguros.com.ar" /> <meta property="og:title" content="Vanguardia Seguros | El futuro es seguro" />
+    <meta property="og:description" content="Cotizá tu seguro de auto u hogar en 2 minutos. Atención personalizada y respaldo de compañías líderes." />
+    
+    <meta property="og:image" content="/social-image.jpg" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://vanguardiaseguros.com.ar" />
+    <meta property="twitter:title" content="Vanguardia Seguros" />
+    <meta property="twitter:description" content="Seguros simples, rápidos y confiables." />
+    <meta property="twitter:image" content="/social-image.jpg" />
+</head>
+<body>
+    
+    <Navbar />
+
+    <main style="padding-top: var(--header-height); min-height: 80vh;">
+        <slot />
+    </main>
+
+    <Footer />
+
+    <QuoteModal />
+
+    <WhatsappButton />
+
+    <script is:inline>
+        // Esperamos a que el contenido cargue para no tener errores de "undefined"
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // Verificamos si cargó la librería
+            if (typeof Lenis !== 'undefined') {
+                
+                const lenis = new Lenis({
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    smooth: true,
+                });
+
+                function raf(time) {
+                    lenis.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+
+                // Conectar links internos para scroll suave
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        if(targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if(targetElement){
+                            lenis.scrollTo(targetElement, {
+                                offset: -80, // Compensar el header fijo
+                                duration: 1.5
+                            });
+                        }
+                    });
+                });
+
+                console.log("Lenis iniciado correctamente 🚀");
+            } else {
+                console.error("Lenis no pudo cargar.");
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+/* src/styles/global.css */
+
+/* --- IMPORTANTE: Nueva Fuente 'Onest' --- */
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&display=swap');
+
+/* --- 1. DESIGN TOKENS --- */
+:root {
+  /* Brand Colors */
+  --primary: #002060;        /* Azul Profundo */
+  --primary-rgb: 0, 32, 96;  /* Para opacidades */
+  --primary-hover: #003399;
+  --accent: #00d4ff;         /* Celeste Tech */
+  --accent-soft: #e0f7ff;
+  
+  /* Neutrals */
+  --bg-body: #f8fafc;       /* Un gris un pelín más frío y limpio */
+  --bg-surface: #ffffff;
+  --text-main: #0f172a;     /* Casi negro, más legible */
+  --text-muted: #64748b;    /* Gris azulado, más moderno */
+  --border: #e2e8f0;
+
+  /* Spacing & Layout */
+  --container-width: 1100px; /* Un poco más angosto para mejor lectura */
+  --header-height: 70px;     /* Altura del navbar */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  
+  /* Typography */
+  --font-body: 'Onest', system-ui, sans-serif;
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Curva más suave */
+}
+
+/* --- 2. RESET & BASE --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  height: 100%;
+  /* IMPORTANTE: Quitamos 'scroll-behavior: smooth' para que Lenis funcione bien */
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6; 
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* --- 🔥 NUEVO: EFECTO RUIDO (NOISE TEXTURE) 🔥 --- */
+/* Esto le da esa textura de "papel" o granulosidad premium */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* AHORA SÍ: Ruido con opacidad base al 100% */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  
+  /* AJUSTÁ LA INTENSIDAD ACÁ: */
+  opacity: 0.06;  /* Probá con 0.05 (sutil) hasta 0.15 (granulado fuerte) */
+  
+  pointer-events: none;
+  z-index: 9999;
+  
+  /* IMPORTANTE: Si usás fondo claro, 'multiply' se ve mejor que 'overlay' */
+  mix-blend-mode: multiply; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1; 
+  letter-spacing: -0.03em; 
+  color: var(--text-main);
+  text-wrap: balance; 
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+img, svg { display: block; max-width: 100%; }
+
+/* --- 3. TYPOGRAPHY CLASSES --- */
+
+/* Hero Title */
+.title-xl {
+  font-size: 3.5rem; /* Desktop */
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+/* Section Titles */
+.title-lg { 
+  font-size: 2.75rem; 
+  font-weight: 700; 
+  color: var(--text-main); 
+  margin-bottom: 1rem;
+}
+
+/* Card Titles */
+.title-md { 
+  font-size: 1.5rem; 
+  font-weight: 700; 
+  color: var(--text-main); 
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.text-lead { 
+  font-size: 1.15rem; 
+  color: var(--text-muted); 
+  font-weight: 400; 
+  line-height: 1.6;
+  max-width: 55ch; 
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-center { text-align: center; }
+
+/* Gradient Text Effect */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block; 
+}
+
+/* --- 4. LAYOUT UTILITIES --- */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Ajuste de espacio entre secciones */
+.section { 
+  padding: 5rem 0; 
+}
+
+/* Grillas ajustadas */
+.grid-2 { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 4rem; 
+  margin-top: 3rem;
+  align-items: center; 
+}
+
+.grid-3 { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+  gap: 2rem; 
+}
+
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-col { display: flex; flex-direction: column; }
+
+/* --- 5. COMPONENTS --- */
+
+/* Buttons (Modernizados) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: var(--transition);
+  cursor: pointer;
+  border: 1px solid transparent;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 4px 6px rgba(var(--primary-rgb), 0.2);
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+.btn-outline {
+  background-color: white;
+  border-color: #e2e8f0;
+  color: var(--text-main);
+}
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background-color: #f8fafc;
+}
+
+/* --- 6. MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  :root {
+      --header-height: 60px;
+  }
+  
+  .section { padding: 3.5rem 0; }
+  
+  .grid-2 { 
+    grid-template-columns: 1fr; 
+    gap: 3rem; 
+    text-align: center; 
+    margin-top: 1rem;
+  }
+
+  /* ORDEN NATURAL: Texto arriba, Imagen abajo */
+  .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+  }
+
+  /* Ajuste para los botones del hero */
+  .hero-content > div[style*="display: flex"] {
+      justify-content: center;
+      width: 100%;
+  }
+
+  .hero-visual { 
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+  }
+  
+  .title-xl { 
+      font-size: 2.5rem; 
+      margin-bottom: 1rem;
+  }
+  
+  .title-lg { font-size: 2rem; }
+  
+  .text-lead { font-size: 1rem; }
+  
+  .nav-links { display: none; }
+}

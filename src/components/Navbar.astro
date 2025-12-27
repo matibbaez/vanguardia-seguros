@@ -1,0 +1,291 @@
+---
+import Logo from './Logo.astro';
+
+const links = [
+  { name: 'Seguros', href: '#coberturas' },
+  { name: 'Nosotros', href: '#por-que-elegirnos' },
+  { name: 'Testimonios', href: '#testimonios' },
+];
+---
+
+<header id="main-header">
+  
+  <div class="top-bar">
+    <div class="container flex-between h-full">
+      <div class="top-left">
+        <span class="emergency-badge">🚨 Urgencias 24hs</span>
+        <a href="tel:08005559000" class="phone-link">0800-555-9000</a>
+      </div>
+      <div class="top-right">
+        <a href="mailto:hola@vanguardia.com" class="text-link">hola@vanguardia.com</a>
+        <span class="divider">|</span>
+        <a href="#portal" class="text-link">Portal Productores</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-wrapper">
+    <div class="container flex-between nav-inner">
+      
+      <a href="#inicio" class="brand-link">
+        <div class="logo-box">
+          <Logo />
+        </div>
+        <span class="brand-text">Vanguardia</span>
+      </a>
+
+      <nav class="desktop-nav">
+        <ul class="nav-list">
+          {links.map((link) => (
+            <li>
+              <a href={link.href} class="nav-item">
+                {link.name}
+                <span class="link-underline"></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="desktop-actions">
+        <a href="#login" class="btn-login">Ingresar</a>
+        <a href="#cotizar" class="btn-quote">Cotizar Ahora</a>
+      </div>
+
+      <button id="menu-toggle" class="mobile-toggle" aria-label="Menu">
+        <div class="hamburger-box">
+          <span class="line line-top"></span>
+          <span class="line line-middle"></span>
+          <span class="line line-bottom"></span>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-overlay">
+    <div class="mobile-content">
+      <nav class="mobile-links-list">
+        {links.map((link, index) => (
+          <a href={link.href} class="mobile-link" style={`--delay: ${index * 0.1}s`}>
+            {link.name}
+          </a>
+        ))}
+      </nav>
+      
+      <div class="mobile-actions fade-in-up">
+        <a href="#cotizar" class="btn-quote full-width">Cotizar Online</a>
+        <a href="#login" class="btn-login full-width" style="text-align:center;">Área Clientes</a>
+      </div>
+
+      <div class="mobile-footer fade-in-up-delayed">
+        <p>¿Tuviste un choque?</p>
+        <a href="tel:08005559000" class="emergency-btn">Llamar al 0800-555-9000</a>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<script>
+  const header = document.getElementById('main-header');
+  const toggleBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const body = document.body;
+
+  if (header && toggleBtn && mobileMenu) {
+    // Scroll Effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    });
+
+    // Toggle Menu
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = header.classList.toggle('menu-open');
+      if (isOpen) {
+        body.style.overflow = 'hidden';
+      } else {
+        body.style.overflow = '';
+      }
+    });
+
+    // Close on click
+    const links = mobileMenu.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        header.classList.remove('menu-open');
+        body.style.overflow = '';
+      });
+    });
+  }
+</script>
+
+<style>
+  /* --- LAYOUT GENERAL --- */
+  #main-header {
+    position: fixed;
+    top: 0; left: 0; width: 100%; z-index: 1000;
+    font-family: var(--font-body);
+  }
+
+  /* --- 1. TOP BAR --- */
+  .top-bar {
+    background-color: var(--primary);
+    color: white;
+    height: 44px;
+    font-size: 0.85rem;
+    overflow: hidden;
+    transition: margin-top 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    position: relative;
+    z-index: 1006;
+  }
+  .h-full { height: 100%; display: flex; align-items: center; }
+  .top-left, .top-right { display: flex; align-items: center; gap: 1.5rem; }
+  .emergency-badge { background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; }
+  .phone-link { font-weight: 700; color: white; }
+  .text-link:hover { text-decoration: underline; }
+  .divider { opacity: 0.4; }
+
+  /* --- 2. MAIN NAV --- */
+  .nav-wrapper {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1005; 
+  }
+
+  #main-header.is-scrolled .nav-wrapper {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+  }
+  
+  #main-header.is-scrolled .top-bar { margin-top: -44px; }
+
+  .nav-inner {
+    height: 90px;
+    transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  #main-header.is-scrolled .nav-inner { height: 70px; }
+
+  /* LOGO */
+  .logo-box { 
+    width: 45px; height: 45px; 
+    transition: transform 0.3s ease;
+  }
+  .logo-box :global(svg) { width: 100%; height: 100%; object-fit: contain; }
+  #main-header.is-scrolled .logo-box { transform: scale(0.9); }
+
+  .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .brand-text { font-size: 1.4rem; font-weight: 800; color: var(--primary); letter-spacing: -0.03em; }
+
+  /* LINKS DESKTOP */
+  .nav-list { display: flex; gap: 2rem; }
+  .nav-item { 
+    font-weight: 500; color: var(--text-main); position: relative; padding: 5px 0; display: inline-block;
+  }
+  .nav-item:hover { color: var(--primary); }
+
+  .link-underline {
+    position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
+    background-color: var(--accent); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateX(-50%); border-radius: 2px;
+  }
+  .nav-item:hover .link-underline { width: 100%; }
+
+  /* BOTONES */
+  .desktop-actions { display: flex; align-items: center; gap: 1rem; }
+  .btn-login { font-weight: 600; color: var(--primary); padding: 8px 16px; transition: color 0.2s; }
+  .btn-login:hover { color: var(--primary-hover); }
+  
+  .btn-quote {
+    background: var(--primary); color: white; padding: 10px 24px; border-radius: 50px;
+    font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(var(--primary-rgb), 0.2);
+  }
+  .btn-quote:hover { 
+    transform: translateY(-2px); box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.3); background: var(--primary-hover);
+  }
+
+  /* --- 4. HAMBURGUESA --- */
+  .mobile-toggle {
+    display: none; background: none; border: none; cursor: pointer; padding: 0;
+    width: 30px; height: 30px; align-items: center; justify-content: center;
+  }
+  .hamburger-box { width: 26px; height: 20px; position: relative; }
+  .line {
+    position: absolute; left: 0; width: 100%; height: 2px;
+    background-color: var(--primary); border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  .line-top { top: 0; }
+  .line-middle { top: 50%; transform: translateY(-50%); }
+  .line-bottom { bottom: 0; }
+  
+  .menu-open .line-top { top: 50%; transform: translateY(-50%) rotate(45deg); }
+  .menu-open .line-middle { opacity: 0; }
+  .menu-open .line-bottom { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+
+  /* --- 5. MOBILE MENU (CORREGIDO: CENTRADO) --- */
+  .mobile-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: white;
+    z-index: 1004; 
+    
+    /* ESTO HACE LA MAGIA DEL CENTRADO: */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center; /* Centrado Vertical */
+    
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  }
+
+  .menu-open .mobile-overlay { opacity: 1; pointer-events: all; }
+
+  /* Contenedor interno para organizar */
+  .mobile-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mobile-links-list { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; width: 100%; }
+
+  .mobile-link {
+    font-size: 1.8rem; font-weight: 700; color: var(--text-main);
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s;
+  }
+
+  .menu-open .mobile-link {
+    opacity: 1; transform: translateY(0); transition-delay: var(--delay);
+  }
+  .mobile-link:hover { color: var(--primary); }
+
+  .mobile-actions, .mobile-footer {
+    opacity: 0; transform: translateY(20px); transition: all 0.5s ease;
+  }
+  .menu-open .mobile-actions { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+  .menu-open .mobile-footer { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+
+  .mobile-actions { width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+  .full-width { width: 100%; text-align: center; display: block; }
+  
+  /* Footer móvil pegado al bloque central, no al fondo de pantalla */
+  .mobile-footer { margin-top: 3rem; text-align: center; }
+  .emergency-btn { color: #ef4444; font-weight: 800; font-size: 1.1rem; display: block; margin-top: 5px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .top-bar, .desktop-nav, .desktop-actions { display: none; }
+    .mobile-toggle { display: flex; }
+    #main-header.is-scrolled .top-bar { margin-top: 0; }
+  }
+</style>

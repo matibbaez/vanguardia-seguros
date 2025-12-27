@@ -1,0 +1,222 @@
+---
+const faqs = [
+  {
+    question: "¿Qué documentación necesito para circular?",
+    answer: "Para circular legalmente necesitas: Licencia de conducir vigente, Cédula verde (o azul si no sos titular), Comprobante de seguro vigente (digital o impreso) y VTV al día."
+  },
+  {
+    question: "¿Cómo denuncio un siniestro?",
+    answer: "¡Es súper fácil! Podés hacerlo desde nuestro Portal de Productores, enviándonos un WhatsApp al botón que ves en pantalla, o llamando al 0800-555-9000 las 24hs."
+  },
+  {
+    question: "¿El seguro cubre granizo e inundación?",
+    answer: "Sí, nuestras coberturas de 'Terceros Completo' y 'Todo Riesgo' incluyen protección contra granizo, inundación y daños por temporal sin topes ni franquicias sorpresa."
+  },
+  {
+    question: "¿Cuánto tarda en aprobarse la cotización?",
+    answer: "Es casi inmediato. Una vez que completás tus datos en el formulario, nuestro sistema busca la mejor opción y en menos de 15 minutos tenés tu póliza lista para emitir."
+  },
+  {
+    question: "¿Tienen servicio de grúa?",
+    answer: "Por supuesto. Dependiendo de tu plan, contás con servicio de remolque y auxilio mecánico las 24hs en todo el país y países limítrofes."
+  }
+];
+---
+
+<section id="faq" class="section faq-section">
+  <div class="container">
+    <div class="header-center reveal">
+      <span class="badge">Dudas Frecuentes</span>
+      <h2 class="title-lg">Resolvemos tus <span class="text-gradient">consultas</span></h2>
+    </div>
+
+    <div class="faq-container">
+      {faqs.map((faq, index) => (
+        <div class="faq-item reveal">
+          <button class="faq-question" aria-expanded="false">
+            <span class="question-text">{faq.question}</span>
+            <span class="icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <div class="answer-inner">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Lógica del Acordeón con Tipos Seguros
+  document.addEventListener('DOMContentLoaded', () => {
+    const questions = document.querySelectorAll('.faq-question');
+
+    questions.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 1. Obtenemos elementos con seguridad
+        const item = btn.parentElement;
+        
+        // Si no hay padre (raro, pero posible), salimos
+        if (!item) return;
+
+        // Casteamos 'answer' como HTMLElement para poder acceder a .style
+        const answer = item.querySelector('.faq-answer') as HTMLElement | null;
+        
+        // Si no hay respuesta, salimos
+        if (!answer) return;
+
+        const isActive = item.classList.contains('active');
+
+        // 2. CERRAR TODOS LOS DEMÁS
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            
+            const otherBtn = otherItem.querySelector('.faq-question');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+            
+            const otherAnswer = otherItem.querySelector('.faq-answer') as HTMLElement | null;
+            if (otherAnswer) {
+                otherAnswer.style.maxHeight = ''; // Usamos string vacío, no null
+            }
+          }
+        });
+
+        // 3. TOGGLE DEL ACTUAL
+        if (isActive) {
+          // Si estaba abierto, lo cerramos
+          item.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+          answer.style.maxHeight = ''; // String vacío para resetear
+        } else {
+          // Si estaba cerrado, lo abrimos
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+          // Calculamos altura
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .faq-section {
+    background-color: var(--bg-body);
+    /* Un toque de espacio extra abajo para que respire */
+    padding-bottom: 8rem; 
+  }
+
+  .header-center { text-align: center; max-width: 600px; margin: 0 auto 3rem auto; }
+  
+  .badge {
+    display: inline-block; background: #eff6ff; color: var(--primary);
+    padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.8rem;
+    margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  .faq-container {
+    max-width: 700px; /* Ancho ideal para lectura */
+    margin: 0 auto;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  /* --- ITEM STYLES --- */
+  .faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden; /* Clave para la animación */
+    transition: all 0.3s ease;
+  }
+
+  /* Estado Activo (Abierto) */
+  .faq-item.active {
+    border-color: var(--primary);
+    box-shadow: 0 10px 25px -5px rgba(0, 32, 96, 0.08); /* Sombra azulada suave */
+  }
+
+  /* --- BOTÓN PREGUNTA (Touch Target Grande) --- */
+  .faq-question {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 1.25rem 1.5rem; /* Padding generoso para dedos gordos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-main);
+    transition: color 0.3s;
+  }
+
+  .question-text {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    padding-right: 15px; /* Espacio para que no choque con el icono */
+  }
+
+  .faq-item.active .question-text {
+    color: var(--primary); /* Texto azul al abrir */
+  }
+
+  /* --- ICONO ANIMADO --- */
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0; /* Que no se aplaste nunca */
+  }
+
+  /* Rotación al abrir */
+  .faq-item.active .icon-wrapper {
+    transform: rotate(135deg); /* Se convierte en X elegante */
+    color: #ef4444; /* Rojo al estar abierto */
+  }
+
+  /* --- RESPUESTA (ANIMACIÓN) --- */
+  .faq-answer {
+    max-height: 0; /* Cerrado por defecto */
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animación suave */
+    background-color: #f8fafc; /* Fondo gris muy clarito para diferenciar */
+  }
+
+  .answer-inner {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border-top: 1px solid transparent; /* Truco visual */
+  }
+  
+  /* Borde superior de la respuesta cuando se abre */
+  .faq-item.active .faq-answer {
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+
+  /* --- RESPONSIVE MOBILE --- */
+  @media (max-width: 768px) {
+    .faq-item {
+      border-radius: 12px;
+    }
+    
+    .faq-question {
+      padding: 1rem 1.25rem;
+    }
+    
+    .question-text {
+      font-size: 1rem; /* Un pelín más chico en celu */
+    }
+  }
+</style>

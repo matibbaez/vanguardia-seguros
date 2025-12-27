@@ -1,0 +1,109 @@
+---
+// Array con tus archivos exactos
+const partners = [
+  { name: 'Allianz', src: '/logo_allianz.138082850e0809e8f0fa6d4ecce78507.svg' },
+  { name: 'Zurich', src: '/logo_zurich.76cfb2efc912fa76df64ff63a5dc029c.svg' },
+  { name: 'Sancor Seguros', src: '/logo_sancor.553b89ec7a75299a29ae459eb1b29e24.svg' },
+  { name: 'San Cristóbal', src: '/logo_sancristobal.bfeed5621039d88f44b5162c613d2c46.svg' },
+  { name: 'Mapfre', src: '/logo_mapfre.fa624441420150921eb0d49e1ba962d3.svg' },
+  { name: 'Provincia Seguros', src: '/logo_provinciaseguros.e01924527f246e18a35dce92d8fe631f.svg' },
+  { name: 'Mercantil Andina', src: '/logo_mercantil.c2ee3ff43954bf4d11fcde88d2dde75f.svg' },
+  { name: 'La Meridional', src: '/logo_meridional.f64612c06415a8b22c51771414e5b0f6.svg' },
+  { name: 'SMG Seguros', src: '/logo_SMG.5aeea97e94a3ed3ebd1b0c197d6c4e57.svg' },
+  { name: 'Experta', src: '/logo_experta.c5367ced044de4f04aff457d9dcd119a.svg' },
+  { name: 'Now Assistance', src: '/logo_nowassistance.39d6ad2f0574eafed176eb5e88466f68.svg' },
+];
+---
+
+<section class="partners-section">
+    <div class="container">
+        <p class="section-label">
+            RESPALDADO POR LAS COMPAÑÍAS LÍDERES
+        </p>
+        
+        <div class="logos-grid">
+            {partners.map((partner) => (
+                <div class="logo-item" title={partner.name}>
+                    <img 
+                        src={partner.src} 
+                        alt={`Logo ${partner.name}`} 
+                        loading="lazy"
+                        width="120" 
+                        height="60"
+                    />
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .partners-section {
+        margin-top: 3rem;
+        background-color: white;
+        padding: 3rem 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+        text-align: center;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        letter-spacing: 1.5px;
+        margin-bottom: 2.5rem;
+        text-transform: uppercase;
+        opacity: 0.8;
+    }
+
+    .logos-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem; /* Espacio generoso entre logos */
+        row-gap: 3rem;
+    }
+
+    .logo-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Tamaño base del contenedor del logo */
+        width: 140px; 
+        height: 60px;
+        transition: transform 0.3s ease;
+    }
+
+    .logo-item img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        
+        /* ESTILO: Escala de grises por defecto (Elegante) */
+        filter: grayscale(100%) opacity(0.6);
+        transition: all 0.3s ease;
+    }
+
+    /* EFECTO HOVER: Color original */
+    .logo-item:hover img {
+        filter: grayscale(0%) opacity(1);
+        transform: scale(1.1);
+    }
+
+    /* Ajuste Mobile */
+    @media (max-width: 768px) {
+        .partners-section {
+            padding: 2.5rem 0;
+        }
+        
+        .logos-grid {
+            gap: 2rem;
+        }
+
+        .logo-item {
+            width: 110px; /* Un poco más chicos en celu */
+            height: 50px;
+        }
+    }
+</style>

@@ -1,0 +1,40 @@
+---
+const { class: className, inverted = false } = Astro.props;
+
+// Si 'inverted' es true (para el footer), usamos blanco para el fondo y azul para el check.
+// Si no, usamos los colores originales.
+const circleColor = inverted ? 'white' : 'var(--primary)';
+const checkColor = inverted ? 'var(--primary)' : 'white';
+---
+
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  viewBox="0 0 200 200" 
+  class={className} 
+  width="100%" 
+  height="100%"
+>
+  <circle cx="100" cy="100" r="100" fill={circleColor} />
+  
+  <path 
+    d="M55 95 L90 130 L160 60" 
+    stroke={checkColor} 
+    stroke-width="20" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    fill="none" 
+  />
+  
+  <path 
+    d="M175 50 L195 30" 
+    stroke="var(--accent)" 
+    stroke-width="8" 
+    stroke-linecap="round"
+  />
+   <path 
+    d="M165 80 L185 60" 
+    stroke="var(--accent)" 
+    stroke-width="8" 
+    stroke-linecap="round"
+  />
+</svg>

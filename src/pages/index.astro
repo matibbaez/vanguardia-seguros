@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
+import Partners from '../components/Partners.astro';
+import Services from '../components/Services.astro';
+import WhyUs from '../components/WhyUs.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+---
+
+<Layout title="Vanguardia Seguros | El futuro es seguro">
+    
+    <div id="inicio" class="section hero-section">
+        <div class="container grid-2">
+            
+            <div class="hero-content">
+                <h1 class="title-xl">
+                    Seguridad que avanza <br>
+                    <span class="text-gradient">a tu velocidad.</span>
+                </h1>
+                <p class="text-lead" style="margin: 1.5rem 0 2.5rem 0;">
+                    Olvídate de la burocracia. En Vanguardia combinamos tecnología y respaldo financiero para proteger lo que más querés en tiempo récord.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="#cotizar" class="btn btn-primary">Cotizar Online</a>
+                    <a href="#coberturas" class="btn btn-outline">Ver Coberturas</a>
+                </div>
+                
+                <div class="trust-badge">
+                    <div class="avatar-group">
+                        <img 
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80" 
+                            alt="Cliente 1" 
+                            class="avatar"
+                        />
+                        <img 
+                            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100&q=80" 
+                            alt="Cliente 2" 
+                            class="avatar"
+                        />
+                        <img 
+                            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&h=100&q=80" 
+                            alt="Cliente 3" 
+                            class="avatar"
+                        />
+                    </div>
+                    <p class="trust-text">
+                        <strong>+1.500 clientes</strong> confían en nosotros.
+                    </p>
+                </div>
+            </div>
+
+            <div class="hero-visual flex-center" style="position: relative;">
+                <div style="position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(var(--primary-rgb), 0.3) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; z-index: -1;"></div>
+
+                <div style="position: relative; width: 100%; max-width: 400px; height: 350px;">
+
+                    <div class="glass-card" style="position: absolute; top: 20%; left: 0; right: 0; margin: auto; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); padding: 1.5rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 20px 40px rgba(0,0,0,0.1); width: 85%; transform: rotate(-2deg); z-index: 2;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <div style="background: var(--primary); color: white; padding: 8px; border-radius: 12px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+                            </div>
+                            <span style="color: #166534; background: #dcfce7; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.8rem;">PROTEGIDO</span>
+                        </div>
+                        <h3 style="margin: 0; font-size: 1.2rem;">Seguro Automotor</h3>
+                        <p style="margin: 5px 0 0; color: #666; font-size: 0.9rem;">Toyota Corolla - AD 234 BC</p>
+                    </div>
+
+                    <div class="glass-card float-slow" style="position: absolute; top: 0; right: 0; background: white; padding: 1rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 10px; z-index: 1;">
+                        <div style="background: #e0f2fe; color: #0284c7; padding: 6px; border-radius: 8px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </div>
+                        <div>
+                            <p style="margin: 0; font-weight: 700; font-size: 0.9rem;">Hogar</p>
+                            <p style="margin: 0; font-size: 0.7rem; color: #888;">Cobertura Full</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card float-delayed" style="position: absolute; bottom: 40px; left: 10px; background: white; padding: 1rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 10px; z-index: 3;">
+                        <div style="width: 35px; height: 35px; border-radius: 50%; background: #fce7f3; color: #db2777; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </div>
+                        <div>
+                            <p style="margin: 0; font-weight: 700; font-size: 0.9rem;">Vida</p>
+                            <p style="margin: 0; font-size: 0.7rem; color: #888;">Activo</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <Partners />
+
+    <Services />
+
+    <WhyUs />
+
+    <Faq   />
+
+    <Testimonials />
+
+</Layout>
+
+<style>
+    /* Animaciones Flotantes */
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    .float-slow { animation: float 6s ease-in-out infinite; }
+    .float-delayed { animation: float 7s ease-in-out infinite 1s; }
+
+    /* Estilos de Social Proof (Caritas) */
+    .trust-badge {
+        margin-top: 3rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .avatar-group {
+        display: flex;
+        align-items: center; 
+    }
+
+    .avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        margin-left: -15px; /* Superposición */
+        transition: transform 0.2s;
+    }
+    
+    .avatar:hover {
+        transform: translateY(-2px) scale(1.05);
+        z-index: 10; /* Al pasar el mouse, sube al frente */
+    }
+
+    .avatar:first-child { margin-left: 0; z-index: 3; }
+    .avatar:nth-child(2) { z-index: 2; }
+    .avatar:nth-child(3) { z-index: 1; }
+
+    .trust-text {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin: 0;
+        line-height: 1.2;
+    }
+    
+    .trust-text strong {
+        color: var(--primary);
+        font-weight: 700;
+    }
+</style>

@@ -1,0 +1,240 @@
+---
+---
+
+<dialog id="quote-modal" class="modal-overlay">
+  <div class="modal-wrapper">
+    
+    <button id="close-modal-btn" class="close-btn" aria-label="Cerrar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-badge">⚡</div>
+        <h2>Cotizá en <span class="text-gradient">segundos</span></h2>
+        <p>Completá los datos y te enviamos el presupuesto directo a tu WhatsApp.</p>
+      </div>
+
+      <form id="quote-form" class="quote-form">
+        
+        <div class="form-group">
+          <label for="name">Nombre y Apellido</label>
+          <input type="text" id="name" placeholder="Ej: Matías Baez" required />
+        </div>
+
+        <div class="form-group">
+          <label for="vehicle">¿Qué querés asegurar?</label>
+          <input type="text" id="vehicle" placeholder="Ej: Toyota Corolla 2023" required />
+        </div>
+
+        <div class="form-group">
+          <label for="type">Tipo de Cobertura</label>
+          <div class="select-wrapper">
+            <select id="type">
+              <option value="Terceros Completo">Terceros Completo</option>
+              <option value="Todo Riesgo">Todo Riesgo</option>
+              <option value="Responsabilidad Civil">Responsabilidad Civil</option>
+              <option value="Hogar/Otro">Hogar / Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Solicitar Cotización
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wa-icon"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        </button>
+
+        <p class="disclaimer">
+          🔒 Tus datos están protegidos. Respuesta en menos de 10 min.
+        </p>
+
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  // 1. Seleccionamos los elementos y le decimos a TypeScript qué son (Type Casting)
+  const modal = document.getElementById('quote-modal') as HTMLDialogElement | null;
+  const closeBtn = document.getElementById('close-modal-btn');
+  const form = document.getElementById('quote-form') as HTMLFormElement | null;
+  
+  // Seleccionamos todos los botones que abren el modal
+  const openBtns = document.querySelectorAll('a[href="#cotizar"]');
+
+  // TELÉFONO DEL PRODUCTOR
+  const PHONE_NUMBER = "5491153464411"; 
+
+  // 2. Cláusula de Guardia: Verificamos que los elementos existan antes de usarlos
+  if (modal && closeBtn && form) {
+
+    // --- ABRIR MODAL ---
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.showModal(); // Ahora TS sabe que es un <dialog> y permite esto
+        document.body.style.overflow = 'hidden'; 
+      });
+    });
+
+    // --- CERRAR MODAL ---
+    const closeModal = () => {
+      modal.close();
+      document.body.style.overflow = '';
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+
+    // Cerrar si clickean afuera (overlay)
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // --- ENVIAR A WHATSAPP ---
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Casteamos los inputs para poder leer la propiedad .value
+      const nameInput = document.getElementById('name') as HTMLInputElement | null;
+      const vehicleInput = document.getElementById('vehicle') as HTMLInputElement | null;
+      const typeInput = document.getElementById('type') as HTMLSelectElement | null;
+
+      // Verificamos que los inputs existan
+      if (nameInput && vehicleInput && typeInput) {
+        const name = nameInput.value;
+        const vehicle = vehicleInput.value;
+        const type = typeInput.value;
+
+        // Armamos el mensaje
+        const message = `Hola Vanguardia! %0AQuiero cotizar un seguro.%0A%0A *Nombre:* ${name}%0A *Vehículo:* ${vehicle}%0A *Cobertura:* ${type}%0A%0AEspero el presupuesto. Gracias!`;
+
+        // Abrimos WhatsApp
+        window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
+        
+        closeModal();
+      }
+    });
+  }
+</script>
+
+<style>
+  /* --- 1. EL CONTENEDOR (OVERLAY) --- */
+  .modal-overlay {
+    border: none;
+    padding: 0;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    position: fixed;
+    z-index: 9999;
+    
+    /* ANIMACIÓN DEL FONDO (BACKDROP) */
+    /* Usamos una animación de entrada para el backdrop nativo */
+    &::backdrop {
+      background: rgba(0, 32, 96, 0.6);
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      animation: backdropFadeIn 0.5s forwards;
+    }
+  }
+
+  /* --- 2. EL WRAPPER (LA TARJETA BLANCA) --- */
+  .modal-wrapper {
+    position: fixed;
+    top: 50%; left: 50%;
+    /* Estado inicial de la animación (centrado y ajustado) */
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 450px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    
+    /* Por defecto invisible */
+    opacity: 0; 
+  }
+
+  /* --- 3. LA MAGIA: ANIMACIÓN AL ABRIR --- */
+  /* Cuando el dialogo tiene el atributo [open], disparamos la animación */
+  .modal-overlay[open] .modal-wrapper {
+    animation: modalPopUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  /* --- KEYFRAMES (Las instrucciones del movimiento) --- */
+  
+  /* A. Fondo apareciendo suave */
+  @keyframes backdropFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* B. Tarjeta entrando con rebote (Elastic Pop) */
+  @keyframes modalPopUp {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -40%) scale(0.9); /* Empieza un poco más arriba y chica */
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1); /* Termina en su lugar */
+    }
+  }
+
+  /* --- RESTO DE ESTILOS (IGUAL QUE ANTES) --- */
+  .modal-content { padding: 2.5rem; }
+
+  .close-btn {
+    position: absolute; top: 15px; right: 15px;
+    background: #f1f5f9; border: none; cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #64748b; transition: all 0.2s; z-index: 10;
+  }
+  .close-btn:hover { background: #e2e8f0; color: #ef4444; transform: rotate(90deg); }
+
+  .modal-header { text-align: center; margin-bottom: 2rem; }
+  .icon-badge { 
+    font-size: 2rem; background: #eff6ff; width: 60px; height: 60px; 
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+    margin: 0 auto 1rem auto; 
+    animation: floatIcon 3s ease-in-out infinite; /* Pequeño detalle extra */
+  }
+  
+  @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+  .modal-header h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.1; }
+  .modal-header p { font-size: 0.95rem; color: #64748b; line-height: 1.4; }
+
+  /* FORMULARIO */
+  .form-group { margin-bottom: 1.2rem; text-align: left; }
+  .form-group label { 
+    display: block; font-size: 0.9rem; font-weight: 600; 
+    color: #334155; margin-bottom: 0.4rem; 
+  }
+  
+  input, select {
+    width: 100%; padding: 12px 16px; border-radius: 12px;
+    border: 2px solid #e2e8f0; font-family: inherit; font-size: 1rem;
+    transition: border-color 0.2s; outline: none; background: #f8fafc;
+  }
+  input:focus, select:focus { border-color: var(--primary); background: white; }
+
+  .btn-submit {
+    width: 100%; background: #25D366; 
+    color: white; border: none; padding: 14px; border-radius: 12px;
+    font-size: 1.1rem; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 1.5rem; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-submit:hover { 
+    background: #20bd5a; 
+    transform: translateY(-2px); 
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); 
+  }
+
+  .disclaimer {
+    font-size: 0.75rem; color: #94a3b8; text-align: center; margin-top: 1rem;
+  }
+</style>

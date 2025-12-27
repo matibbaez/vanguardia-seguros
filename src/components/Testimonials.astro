@@ -1,0 +1,224 @@
+<section id="testimonios" class="section" style="background: #f8fafc; position: relative; overflow: hidden;">
+    
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);"></div>
+    <div style="position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, transparent 70%); top: -20%; left: 50%; transform: translateX(-50%); pointer-events: none;"></div>
+
+    <div class="container">
+        
+        <div class="header-box">
+            <div class="stars-summary">
+                ★★★★★
+            </div>
+
+            <h2 class="title-lg">
+                La gente habla, <br>
+                <span class="text-gradient">nosotros respondemos.</span>
+            </h2>
+
+            <p class="text-muted">Más de 500 familias ya duermen tranquilas con Vanguardia.</p>
+            
+        </div>
+
+        <div class="testimonials-grid">
+            
+            <div class="review-card">
+                <div class="card-top">
+                    <div class="quote-icon">❝</div>
+                    <div class="verified-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Cliente Verificado
+                    </div>
+                </div>
+                <p class="review-body">
+                    "Increíble la velocidad. Choqué un martes y el miércoles ya tenía el taller asignado. <strong>Nunca vi una aseguradora que use WhatsApp tan eficientemente</strong>. Un 10."
+                </p>
+                <div class="reviewer">
+                    <div class="avatar">JM</div>
+                    <div class="reviewer-info">
+                        <strong>Juan Manuel G.</strong>
+                        <span>Seguro Todo Riesgo • Toyota Corolla</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card featured">
+                <div class="card-top">
+                    <div class="quote-icon">❝</div>
+                    <div class="verified-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Cliente Verificado
+                    </div>
+                </div>
+                <p class="review-body">
+                    "Estaba pagando una fortuna en el banco. Me pasaron a Vanguardia con la misma cobertura (Zurich) pero <strong>pagando un 30% menos</strong>. La atención de Matías es excelente."
+                </p>
+                <div class="reviewer">
+                    <div class="avatar" style="background: linear-gradient(135deg, #6366f1, #a855f7);">S</div>
+                    <div class="reviewer-info">
+                        <strong>Sofía Martinez</strong>
+                        <span>Combinado Familiar • Palermo</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="card-top">
+                    <div class="quote-icon">❝</div>
+                    <div class="verified-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Cliente Verificado
+                    </div>
+                </div>
+                <p class="review-body">
+                    "Lo contraté todo online un domingo a la noche. Pensé que iba a tardar días, pero <strong>el lunes a las 9am ya tenía la póliza</strong> en mi mail. Súper práctico."
+                </p>
+                <div class="reviewer">
+                    <div class="avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">L</div>
+                    <div class="reviewer-info">
+                        <strong>Lucas P.</strong>
+                        <span>Seguro de Moto • Honda Wave</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* HEADER */
+    .header-box {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 4rem auto;
+    }
+
+    .stars-summary {
+        color: #fbbf24;
+        font-size: 1.5rem;
+        letter-spacing: 4px;
+        margin-bottom: 0.5rem;
+    }
+
+    .google-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: white;
+        padding: 8px 16px;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+    }
+
+    /* GRID */
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    /* CARDS */
+    .review-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        border: 1px solid rgba(255,255,255,0.5);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+    }
+
+    .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+    }
+
+    .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .quote-icon {
+        font-size: 3rem;
+        line-height: 1;
+        color: #e2e8f0;
+        font-family: serif;
+    }
+
+    .verified-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #059669;
+        background: #ecfdf5;
+        padding: 4px 10px;
+        border-radius: 20px;
+    }
+
+    .review-body {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: #334155;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+    
+    .review-body strong {
+        color: var(--primary); /* Resalta las partes clave */
+        font-weight: 600;
+        font-style: normal;
+        background: rgba(var(--primary-rgb), 0.1); /* Resaltador sutil */
+    }
+
+    /* USER INFO */
+    .reviewer {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding-top: 1.5rem;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #2563eb);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .reviewer-info strong {
+        display: block;
+        color: #0f172a;
+        font-size: 1rem;
+    }
+
+    .reviewer-info span {
+        font-size: 0.85rem;
+        color: #64748b;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+        .testimonials-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

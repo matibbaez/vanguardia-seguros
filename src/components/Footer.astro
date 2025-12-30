@@ -19,15 +19,22 @@ const currentYear = new Date().getFullYear();
                 <div class="matricula-box">
                     <span>Nº de Matrícula SSN: <strong>99.999</strong></span>
                 </div>
+
+                <div class="ssn-wrapper">
+                    <a href="https://www.argentina.gob.ar/superintendencia-de-seguros" target="_blank" rel="noopener noreferrer">
+                        <img src="/SSN_Argentina_logo.png" alt="Superintendencia de Seguros de la Nación" />
+                    </a>
+                </div>
             </div>
 
             <div class="footer-col">
                 <h4>Compañía</h4>
                 <ul>
-                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#por-que-elegirnos">Nosotros</a></li>
                     <li><a href="#coberturas">Coberturas</a></li>
+                    <li><a href="#">Testimonios</a></li>
                     <li><a href="#siniestros">Siniestros</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="https://wa.me/5491162959939" target="_blank" class="btn-transparent">Contacto</a></li>
                 </ul>
             </div>
 
@@ -244,6 +251,35 @@ const currentYear = new Date().getFullYear();
             flex-direction: column;
             gap: 1.5rem;
             text-align: center;
+        }
+    }
+
+    /* CONTENEDOR LOGO SSN */
+    .ssn-wrapper {
+        margin-top: 1.5rem; /* Separación de la matrícula */
+        background-color: white; /* Fondo blanco para que el logo se vea bien */
+        padding: 10px 15px;
+        border-radius: 8px; /* Bordes suaves */
+        display: inline-block; /* Que ocupe solo lo necesario */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombrita sutil para despegarlo del fondo */
+        transition: transform 0.2s ease;
+    }
+
+    .ssn-wrapper:hover {
+        transform: translateY(-2px); /* Pequeño efecto al pasar el mouse */
+    }
+
+    .ssn-wrapper img {
+        display: block;
+        height: 35px; /* Altura controlada, ajustala según tu logo */
+        width: auto;
+        object-fit: contain;
+    }
+
+    /* Ajuste Mobile: Centrarlo si colapsa */
+    @media (max-width: 900px) {
+        .ssn-wrapper {
+            margin-top: 2rem;
         }
     }
 </style>

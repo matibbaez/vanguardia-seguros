@@ -1,0 +1,276 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const companies = [
+  { name: 'Allianz', phone: '0800-888-24324', color: '#003781' },
+  { name: 'Zurich', phone: '0800-333-987424', color: '#2167AE' },
+  { name: 'Sancor', phone: '0800-444-2850', color: '#00AEEF' },
+  { name: 'San Cristóbal', phone: '0810-222-8887', color: '#0047BB' },
+  { name: 'Mercantil Andina', phone: '0800-888-4488', color: '#6A4C9C' },
+  { name: 'Provincia Seguros', phone: '0810-222-2444', color: '#FF6600' },
+];
+---
+
+<Layout title="Siniestros | Vanguardia Seguros" isSiniestros={true}>
+  
+  <section class="section siniestros-hero">
+    <div class="container">
+      <div class="hero-center">
+        
+        <span class="badge-alert animate-up" style="animation-delay: 0.1s;">Ayuda Inmediata</span>
+        
+        <h1 class="title-lg animate-up" style="animation-delay: 0.2s;">
+            ¿Tuviste un accidente? <br> 
+            <span class="text-gradient">Mantené la calma.</span>
+        </h1>
+        
+        <p class="text-lead animate-up" style="animation-delay: 0.3s;">
+            Lo más importante es que estés bien. Seguí estos pasos y nosotros nos ocupamos del resto.
+        </p>
+        
+        <div class="emergency-actions animate-up" style="animation-delay: 0.4s;">
+          <a href="tel:08005559000" class="btn btn-primary btn-lg">
+            <span class="icon">📞</span> Llamar a Urgencias 24hs
+          </a>
+          <a href="https://wa.me/5491162959939?text=Hola%20tuve%20un%20siniestro%20y%20necesito%20ayuda%20urgente" target="_blank" class="btn btn-whatsapp btn-lg">
+            <span class="icon">💬</span> Reportar por WhatsApp
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section steps-section">
+    <div class="container">
+      <h2 class="text-center mb-5 animate-up">Qué hacer en el momento</h2>
+      
+      <div class="steps-grid">
+        <div class="step-card animate-up" style="animation-delay: 0.2s;">
+          <div class="step-number">1</div>
+          <h3>Datos del Tercero</h3>
+          <p>Anotá: Nombre completo, DNI, Teléfono, Marca/Modelo del auto, Patente y Compañía de Seguros.</p>
+        </div>
+        
+        <div class="step-card animate-up" style="animation-delay: 0.3s;">
+          <div class="step-number">2</div>
+          <h3>Fotos Clave</h3>
+          <p>Sacá fotos de los daños de ambos vehículos, la posición en la calle y la patente del otro auto.</p>
+        </div>
+        
+        <div class="step-card animate-up" style="animation-delay: 0.4s;">
+          <div class="step-number">3</div>
+          <h3>No asumas culpas</h3>
+          <p>No firmes nada ni reconozcas responsabilidad en el momento. Solo intercambiá datos de contacto.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section administrative-section">
+    <div class="container">
+      <h2 class="title-md text-center animate-up">Denuncia Administrativa</h2>
+      <p class="text-center text-muted mb-5 animate-up">Tenés 72hs para realizar la denuncia en tu compañía. Podés hacerlo directo a sus 0800:</p>
+      
+      <div class="companies-grid">
+        {companies.map((company, index) => (
+          <div class="company-card animate-up" style={`animation-delay: ${0.1 * index}s;`}>
+            <span class="company-name" style={`color: ${company.color}`}>{company.name}</span>
+            <a href={`tel:${company.phone}`} class="phone-link">{company.phone}</a>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-5 animate-up">
+        <p class="text-sm text-muted">¿No encontrás tu compañía? Hablanos y te pasamos el contacto.</p>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style is:global>
+    main {
+        padding-top: 0 !important;
+    }
+</style>
+
+<style>
+  /* ANIMACIONES DE ENTRADA */
+  @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
+
+  .animate-up {
+    opacity: 0; /* Empieza invisible */
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  /* HERO */
+  .siniestros-hero {
+    text-align: center;
+    /* Mucho padding arriba para compensar el navbar transparente */
+    padding-top: 140px; 
+    padding-bottom: 80px;
+    /* Fondo inmersivo */
+    background: radial-gradient(circle at top center, rgba(0, 32, 96, 0.08) 0%, transparent 60%),
+                linear-gradient(to bottom, #f8fafc, white);
+    position: relative;
+  }
+
+  .hero-center {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .badge-alert {
+    background: #fee2e2;
+    color: #ef4444;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px rgba(254, 226, 226, 0.5);
+  }
+
+  .emergency-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .btn-lg:hover { transform: translateY(-2px); }
+
+  .btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  }
+  .btn-whatsapp:hover {
+    background-color: #20bd5a;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+
+  /* STEPS */
+  .steps-section { padding: 4rem 0; }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .step-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease;
+  }
+  
+  .step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .step-number {
+    background: var(--primary);
+    color: white;
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.3);
+  }
+
+  .step-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .step-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* COMPANIES */
+  .administrative-section {
+    background: #f8fafc;
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .company-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+  .company-card:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+    border-color: #e2e8f0;
+  }
+
+  .company-name {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .phone-link {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: #f1f5f9;
+    padding: 4px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .phone-link:hover { 
+    color: white; 
+    background: var(--primary);
+    text-decoration: none; 
+  }
+
+  .mb-5 { margin-bottom: 3rem; }
+  .mt-5 { margin-top: 3rem; }
+  
+  /* Ajuste Mobile */
+  @media (max-width: 768px) {
+    .siniestros-hero { padding-top: 100px; }
+    .hero-center h1 { font-size: 2.2rem; }
+  }
+</style>

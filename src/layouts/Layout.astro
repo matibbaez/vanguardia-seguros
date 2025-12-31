@@ -15,7 +15,8 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Cotizá tu seguro online en segundos. Automotor, Hogar y Vida con el respaldo de las mejores compañías. Vanguardia Seguros." />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/vanguardia.png" /> <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/vanguardia.png" /> 
+    <meta name="generator" content={Astro.generator} />
     
     <title>{title}</title>
 
@@ -33,16 +34,10 @@ const { title } = Astro.props;
     </style>
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://vanguardiaseguros.com.ar" /> <meta property="og:title" content="Vanguardia Seguros | El futuro es seguro" />
+    <meta property="og:url" content="https://vanguardiaseguros.com.ar" /> 
+    <meta property="og:title" content="Vanguardia Seguros | El futuro es seguro" />
     <meta property="og:description" content="Cotizá tu seguro de auto u hogar en 2 minutos. Atención personalizada y respaldo de compañías líderes." />
-    
     <meta property="og:image" content="/social-image.jpg" />
-
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://vanguardiaseguros.com.ar" />
-    <meta property="twitter:title" content="Vanguardia Seguros" />
-    <meta property="twitter:description" content="Seguros simples, rápidos y confiables." />
-    <meta property="twitter:image" content="/social-image.jpg" />
 </head>
 <body>
 
@@ -55,21 +50,25 @@ const { title } = Astro.props;
     </div>
 
     <Navbar />
+
     <script is:inline>
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
-            
-            if(preloader) {
-                // Forzamos que dure 2 segundos (2000ms) para que se luzca el logo
-                setTimeout(() => {
-                    preloader.style.opacity = '0';
-                    
-                    // Esperamos a que termine la animación de opacidad para sacarlo del HTML
+            if (preloader) {
+                // Verificamos si ya visitó en esta sesión para no mostrarlo siempre
+                const hasVisited = sessionStorage.getItem('vanguardia_visited');
+
+                if (!hasVisited) {
                     setTimeout(() => {
-                        preloader.style.display = 'none';
-                    }, 500);
-                    
-                }, 1000); 
+                        preloader.style.opacity = '0';
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                            sessionStorage.setItem('vanguardia_visited', 'true');
+                        }, 500);
+                    }, 1500);
+                } else {
+                    preloader.style.display = 'none';
+                }
             }
         });
     </script>
@@ -79,18 +78,12 @@ const { title } = Astro.props;
     </main>
 
     <Footer />
-
     <QuoteModal />
-
     <WhatsappButton />
 
     <script is:inline>
-        // Esperamos a que el contenido cargue para no tener errores de "undefined"
         document.addEventListener("DOMContentLoaded", () => {
-            
-            // Verificamos si cargó la librería
             if (typeof Lenis !== 'undefined') {
-                
                 const lenis = new Lenis({
                     duration: 1.2,
                     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -103,29 +96,40 @@ const { title } = Astro.props;
                 }
                 requestAnimationFrame(raf);
 
-                // Conectar links internos para scroll suave
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                // LÓGICA INTELIGENTE PARA LINKS
+                document.querySelectorAll('a[href*="#"]').forEach(anchor => {
                     anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        if(targetId === '#') return;
+                        const href = this.getAttribute('href');
+                        // Separamos ruta y hash (ej: /#coberturas -> ["/", "coberturas"])
+                        const [pathname, hash] = href.split('#');
                         
-                        const targetElement = document.querySelector(targetId);
-                        if(targetElement){
-                            lenis.scrollTo(targetElement, {
-                                offset: -80, // Compensar el header fijo
-                                duration: 1.5
-                            });
+                        if (!hash) return; // Si no tiene hash, no hacemos nada
+
+                        // Verificamos si el link apunta a la página actual
+                        const currentPath = window.location.pathname;
+                        // Es la misma página si el path es vacío, es '/' estando en home, o es igual al actual
+                        const isSamePage = pathname === '' || (pathname === '/' && currentPath === '/') || pathname === currentPath;
+
+                        if (isSamePage) {
+                            // Estamos en la misma página: Scroll suave
+                            e.preventDefault();
+                            const targetElement = document.getElementById(hash);
+                            if(targetElement){
+                                lenis.scrollTo(targetElement, {
+                                    offset: -80, 
+                                    duration: 1.5
+                                });
+                                // Actualizar URL sin recargar
+                                history.pushState(null, null, '#' + hash);
+                            }
                         }
+                        // Si NO es la misma página, el navegador seguirá el link normalmente (ej: ir de Siniestros a Home)
                     });
                 });
 
                 console.log("Lenis iniciado correctamente 🚀");
-            } else {
-                console.error("Lenis no pudo cargar.");
             }
         });
     </script>
-
 </body>
 </html>

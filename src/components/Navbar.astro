@@ -2,9 +2,9 @@
 import Logo from './Logo.astro';
 
 const links = [
-  { name: 'Seguros', href: '#coberturas' },
-  { name: 'Nosotros', href: '#por-que-elegirnos' },
-  { name: 'Testimonios', href: '#testimonios' },
+  { name: 'Seguros', href: '/#coberturas' }, // Agregamos la barra '/' antes del #
+  { name: 'Nosotros', href: '/#por-que-elegirnos' },
+  { name: 'Testimonios', href: '/#testimonios' },
 ];
 ---
 
@@ -48,7 +48,6 @@ const links = [
       </nav>
 
       <div class="desktop-actions">
-        <!-- <a href="#login" class="btn-login">Ingresar</a> -->
         <a href="#cotizar" class="btn-quote">Cotizar Ahora</a>
       </div>
 

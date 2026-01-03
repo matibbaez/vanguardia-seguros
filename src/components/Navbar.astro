@@ -71,7 +71,7 @@ const links = [
       
       <div class="mobile-actions fade-in-up">
         <a href="#cotizar" class="btn-quote full-width">Cotizar Online</a>
-        <!-- <a href="#login" class="btn-login full-width" style="text-align:center;">Área Clientes</a> -->
+        <a href="#login" class="btn-login full-width" style="text-align:center;">Área Clientes</a>
       </div>
 
       <div class="mobile-footer fade-in-up-delayed">
@@ -90,7 +90,6 @@ const links = [
   const body = document.body;
 
   if (header && toggleBtn && mobileMenu) {
-    // Scroll Effect
     window.addEventListener('scroll', () => {
       if (window.scrollY > 20) {
         header.classList.add('is-scrolled');
@@ -99,7 +98,6 @@ const links = [
       }
     });
 
-    // Toggle Menu
     toggleBtn.addEventListener('click', () => {
       const isOpen = header.classList.toggle('menu-open');
       if (isOpen) {
@@ -109,7 +107,6 @@ const links = [
       }
     });
 
-    // Close on click
     const links = mobileMenu.querySelectorAll('a');
     links.forEach(link => {
       link.addEventListener('click', () => {
@@ -127,6 +124,8 @@ const links = [
     top: 0; left: 0;
     width: 100%; z-index: 1000;
     font-family: var(--font-body);
+    /* Aseguramos que la transición de posición sea suave */
+    transition: transform 0.3s ease, background-color 0.3s ease; 
   }
 
   /* --- 1. TOP BAR --- */
@@ -136,7 +135,7 @@ const links = [
     height: 44px;
     font-size: 0.85rem;
     overflow: hidden;
-    transition: margin-top 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: height 0.4s ease, opacity 0.4s ease; /* Transición suave de altura */
     position: relative;
     z-index: 1006;
   }
@@ -156,35 +155,38 @@ const links = [
     z-index: 1005;
   }
 
+  /* ESTADO SCROLLED (Desktop y Mobile) */
   #main-header.is-scrolled .nav-wrapper {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98); /* Casi opaco para tapar contenido */
     backdrop-filter: blur(16px);
     box-shadow: 0 4px 30px rgba(0,0,0,0.05);
   }
   
-  #main-header.is-scrolled .top-bar { margin-top: -44px; }
+  /* En Desktop, ocultamos la top-bar al scrollear */
+  #main-header.is-scrolled .top-bar { 
+    height: 0; 
+    opacity: 0;
+  }
 
   .nav-inner {
     height: 90px;
     transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding-left: 1.5rem; 
+    padding-right: 1.5rem; 
   }
   
   #main-header.is-scrolled .nav-inner { height: 70px; }
 
-  /* LOGO IMAGEN */
+  /* LOGO */
   .brand-link { text-decoration: none; display: flex; align-items: center; height: 100%; }
   
   .main-logo {
-    height: 65px; /* Altura base para que se vea bien */
-    width: auto;  /* El ancho se ajusta solo */
+    height: 50px; 
+    width: auto;  
     object-fit: contain;
     transition: height 0.3s ease;
   }
-
-  /* Ajuste de tamaño al scrollear */
-  #main-header.is-scrolled .main-logo {
-    height: 55px; 
-  }
+  #main-header.is-scrolled .main-logo { height: 40px; }
 
   /* LINKS DESKTOP */
   .nav-list { display: flex; gap: 2rem; }
@@ -196,8 +198,7 @@ const links = [
   .link-underline {
     position: absolute; bottom: 0; left: 50%;
     width: 0; height: 2px;
-    background-color: var(--accent); /* Naranja */
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-color: var(--accent); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     transform: translateX(-50%); border-radius: 2px;
   }
   .nav-item:hover .link-underline { width: 100%; }
@@ -208,17 +209,13 @@ const links = [
   .btn-login:hover { color: var(--primary-hover); }
   
   .btn-quote {
-    background: var(--btn-cta); /* Naranja */
+    background: var(--btn-cta);
     color: white;
     padding: 10px 24px; border-radius: 50px;
-    font-weight: 700; 
-    transition: all 0.3s ease; 
-    box-shadow: 0 4px 6px rgba(255, 102, 0, 0.2);
+    font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(255, 102, 0, 0.2);
   }
   .btn-quote:hover { 
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3); 
-    background: var(--btn-cta-hover);
+    transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3); background: var(--btn-cta-hover);
   }
 
   /* --- 4. HAMBURGUESA --- */
@@ -248,22 +245,12 @@ const links = [
     top: 0; left: 0; width: 100%; height: 100vh;
     background: white;
     z-index: 1004;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
-    justify-content: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
   }
-
   .menu-open .mobile-overlay { opacity: 1; pointer-events: all; }
 
-  .mobile-content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
+  .mobile-content { width: 100%; display: flex; flex-direction: column; align-items: center; }
   .mobile-links-list { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; width: 100%; }
 
   .mobile-link {
@@ -272,21 +259,14 @@ const links = [
     transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s;
   }
 
-  .menu-open .mobile-link {
-    opacity: 1;
-    transform: translateY(0); transition-delay: var(--delay);
-  }
+  .menu-open .mobile-link { opacity: 1; transform: translateY(0); transition-delay: var(--delay); }
   .mobile-link:hover { color: var(--primary); }
 
-  .mobile-actions, .mobile-footer {
-    opacity: 0;
-    transform: translateY(20px); transition: all 0.5s ease;
-  }
+  .mobile-actions, .mobile-footer { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
   .menu-open .mobile-actions { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
   .menu-open .mobile-footer { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
 
-  .mobile-actions { width: 100%; max-width: 280px;
-    display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+  .mobile-actions { width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
   .full-width { width: 100%; text-align: center; display: block; }
   
   .mobile-footer { margin-top: 3rem; text-align: center; }
@@ -295,9 +275,32 @@ const links = [
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .top-bar, .desktop-nav, .desktop-actions { display: none; }
-    .mobile-toggle { display: flex; }
-    #main-header.is-scrolled .top-bar { margin-top: 0; }
     
-    .main-logo { height: 55px; } /* Logo un poco más chico en mobile */
+    /* FIX PARA EL HUECO EN MOBILE */
+    /* Forzamos que la top-bar no ocupe espacio si está oculta */
+    .top-bar { height: 0; padding: 0; overflow: hidden; } 
+
+    .mobile-toggle { display: flex; align-items: center; }
+    
+    /* En mobile, el header siempre está pegado al top */
+    #main-header { top: 0; }
+    #main-header.is-scrolled { top: 0; }
+
+    /* Nav siempre con fondo blanco en mobile al scrollear */
+    #main-header.is-scrolled .nav-wrapper {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    
+    /* Logo más chico y controlado */
+    .main-logo { 
+      height: 38px; 
+      max-width: 180px; 
+    } 
+    
+    .nav-inner {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+    }
   }
 </style>

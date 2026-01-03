@@ -1,10 +1,8 @@
 ---
-import Logo from './Logo.astro';
-
 const links = [
-  { name: 'Seguros', href: '/#coberturas' }, // Agregamos la barra '/' antes del #
+  { name: 'Coberturas', href: '/#coberturas' },
   { name: 'Nosotros', href: '/#por-que-elegirnos' },
-  { name: 'Testimonios', href: '/#testimonios' },
+  { name: 'Asesoría Legal', href: '/#asesoria' },
 ];
 ---
 
@@ -18,8 +16,6 @@ const links = [
       </div>
       <div class="top-right">
         <a href="mailto:hola@vanguardia.com" class="text-link">hola@vanguardia.com</a>
-        <span class="divider">|</span>
-        <a href="#portal" class="text-link">Portal Productores</a>
       </div>
     </div>
   </div>
@@ -28,10 +24,11 @@ const links = [
     <div class="container flex-between nav-inner">
       
       <a href="#inicio" class="brand-link">
-        <div class="logo-box">
-          <Logo />
-        </div>
-        <span class="brand-text">Vanguardia</span>
+        <img 
+          src="/logoVanguardiaNuevo.png" 
+          alt="Vanguardia Asesores de Seguros" 
+          class="main-logo"
+        />
       </a>
 
       <nav class="desktop-nav">
@@ -74,7 +71,7 @@ const links = [
       
       <div class="mobile-actions fade-in-up">
         <a href="#cotizar" class="btn-quote full-width">Cotizar Online</a>
-        <a href="#login" class="btn-login full-width" style="text-align:center;">Área Clientes</a>
+        <!-- <a href="#login" class="btn-login full-width" style="text-align:center;">Área Clientes</a> -->
       </div>
 
       <div class="mobile-footer fade-in-up-delayed">
@@ -127,7 +124,8 @@ const links = [
   /* --- LAYOUT GENERAL --- */
   #main-header {
     position: fixed;
-    top: 0; left: 0; width: 100%; z-index: 1000;
+    top: 0; left: 0;
+    width: 100%; z-index: 1000;
     font-family: var(--font-body);
   }
 
@@ -155,7 +153,7 @@ const links = [
     border-bottom: 1px solid transparent;
     transition: all 0.4s ease;
     position: relative;
-    z-index: 1005; 
+    z-index: 1005;
   }
 
   #main-header.is-scrolled .nav-wrapper {
@@ -173,16 +171,20 @@ const links = [
   
   #main-header.is-scrolled .nav-inner { height: 70px; }
 
-  /* LOGO */
-  .logo-box { 
-    width: 45px; height: 45px; 
-    transition: transform 0.3s ease;
+  /* LOGO IMAGEN */
+  .brand-link { text-decoration: none; display: flex; align-items: center; height: 100%; }
+  
+  .main-logo {
+    height: 65px; /* Altura base para que se vea bien */
+    width: auto;  /* El ancho se ajusta solo */
+    object-fit: contain;
+    transition: height 0.3s ease;
   }
-  .logo-box :global(svg) { width: 100%; height: 100%; object-fit: contain; }
-  #main-header.is-scrolled .logo-box { transform: scale(0.9); }
 
-  .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
-  .brand-text { font-size: 1.4rem; font-weight: 800; color: var(--primary); letter-spacing: -0.03em; }
+  /* Ajuste de tamaño al scrollear */
+  #main-header.is-scrolled .main-logo {
+    height: 55px; 
+  }
 
   /* LINKS DESKTOP */
   .nav-list { display: flex; gap: 2rem; }
@@ -192,8 +194,10 @@ const links = [
   .nav-item:hover { color: var(--primary); }
 
   .link-underline {
-    position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
-    background-color: var(--accent); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: absolute; bottom: 0; left: 50%;
+    width: 0; height: 2px;
+    background-color: var(--accent); /* Naranja */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     transform: translateX(-50%); border-radius: 2px;
   }
   .nav-item:hover .link-underline { width: 100%; }
@@ -204,22 +208,30 @@ const links = [
   .btn-login:hover { color: var(--primary-hover); }
   
   .btn-quote {
-    background: var(--primary); color: white; padding: 10px 24px; border-radius: 50px;
-    font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(var(--primary-rgb), 0.2);
+    background: var(--btn-cta); /* Naranja */
+    color: white;
+    padding: 10px 24px; border-radius: 50px;
+    font-weight: 700; 
+    transition: all 0.3s ease; 
+    box-shadow: 0 4px 6px rgba(255, 102, 0, 0.2);
   }
   .btn-quote:hover { 
-    transform: translateY(-2px); box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.3); background: var(--primary-hover);
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3); 
+    background: var(--btn-cta-hover);
   }
 
   /* --- 4. HAMBURGUESA --- */
   .mobile-toggle {
-    display: none; background: none; border: none; cursor: pointer; padding: 0;
+    display: none; background: none; border: none;
+    cursor: pointer; padding: 0;
     width: 30px; height: 30px; align-items: center; justify-content: center;
   }
   .hamburger-box { width: 26px; height: 20px; position: relative; }
   .line {
     position: absolute; left: 0; width: 100%; height: 2px;
-    background-color: var(--primary); border-radius: 4px;
+    background-color: var(--primary);
+    border-radius: 4px;
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
   .line-top { top: 0; }
@@ -230,24 +242,21 @@ const links = [
   .menu-open .line-middle { opacity: 0; }
   .menu-open .line-bottom { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
 
-  /* --- 5. MOBILE MENU (CORREGIDO: CENTRADO) --- */
+  /* --- 5. MOBILE MENU --- */
   .mobile-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
     background: white;
-    z-index: 1004; 
-    
-    /* ESTO HACE LA MAGIA DEL CENTRADO: */
+    z-index: 1004;
     display: flex; 
     flex-direction: column; 
     align-items: center;
-    justify-content: center; /* Centrado Vertical */
-    
+    justify-content: center;
     opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
   }
 
   .menu-open .mobile-overlay { opacity: 1; pointer-events: all; }
 
-  /* Contenedor interno para organizar */
   .mobile-content {
     width: 100%;
     display: flex;
@@ -264,20 +273,22 @@ const links = [
   }
 
   .menu-open .mobile-link {
-    opacity: 1; transform: translateY(0); transition-delay: var(--delay);
+    opacity: 1;
+    transform: translateY(0); transition-delay: var(--delay);
   }
   .mobile-link:hover { color: var(--primary); }
 
   .mobile-actions, .mobile-footer {
-    opacity: 0; transform: translateY(20px); transition: all 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px); transition: all 0.5s ease;
   }
   .menu-open .mobile-actions { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
   .menu-open .mobile-footer { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
 
-  .mobile-actions { width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+  .mobile-actions { width: 100%; max-width: 280px;
+    display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
   .full-width { width: 100%; text-align: center; display: block; }
   
-  /* Footer móvil pegado al bloque central, no al fondo de pantalla */
   .mobile-footer { margin-top: 3rem; text-align: center; }
   .emergency-btn { color: #ef4444; font-weight: 800; font-size: 1.1rem; display: block; margin-top: 5px; }
 
@@ -286,5 +297,7 @@ const links = [
     .top-bar, .desktop-nav, .desktop-actions { display: none; }
     .mobile-toggle { display: flex; }
     #main-header.is-scrolled .top-bar { margin-top: 0; }
+    
+    .main-logo { height: 55px; } /* Logo un poco más chico en mobile */
   }
 </style>

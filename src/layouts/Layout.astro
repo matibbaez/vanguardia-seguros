@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import QuoteModal from '../components/QuoteModal.astro';
 import WhatsappButton from '../components/WhatsAppButton.astro';
-import Logo from '../components/Logo.astro'; 
 
 const { title } = Astro.props;
 ---
@@ -44,7 +43,7 @@ const { title } = Astro.props;
     <div id="preloader">
         <div class="loader-content">
             <div class="logo-wrapper">
-                <Logo class="pulsing-logo" inverted={true} />
+                <img src="/LogoVanguardiaBlanco.png" alt="Cargando..." class="pulsing-logo" />
             </div>
         </div>
     </div>
@@ -109,7 +108,7 @@ const { title } = Astro.props;
                         const currentPath = window.location.pathname;
                         // Es la misma página si el path es vacío, es '/' estando en home, o es igual al actual
                         const isSamePage = pathname === '' || (pathname === '/' && currentPath === '/') || pathname === currentPath;
-
+                        
                         if (isSamePage) {
                             // Estamos en la misma página: Scroll suave
                             e.preventDefault();

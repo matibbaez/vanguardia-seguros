@@ -1,6 +1,4 @@
 ---
-import Logo from './Logo.astro';
-
 const currentYear = new Date().getFullYear();
 ---
 
@@ -10,20 +8,33 @@ const currentYear = new Date().getFullYear();
         <div class="footer-grid">
             
             <div class="footer-brand">
-                <div class="logo-wrapper">
-                    <Logo inverted={true} />
+                <div class="logo-container">
+                    <img 
+                        src="/LogoVanguardiaBlanco.png" 
+                        alt="Vanguardia Seguros" 
+                        class="footer-logo"
+                    />
                 </div>
                 <p class="brand-tagline">
-                    Tecnología que agiliza, respaldo que asegura. La nueva generación de seguros en Argentina.
+                    Seguridad que avanza a tu velocidad.
                 </p>
-                <div class="matricula-box">
-                    <span>Nº de Matrícula SSN: <strong>99.999</strong></span>
-                </div>
+                
+                <div class="legal-block">
+                    <div class="matricula-box">
+                        <span>Nº de Matrícula SSN: <strong>108780</strong></span>
+                    </div>
 
-                <div class="ssn-wrapper">
-                    <a href="https://www.argentina.gob.ar/superintendencia-de-seguros" target="_blank" rel="noopener noreferrer">
-                        <img src="/SSN_Argentina_logo.png" alt="Superintendencia de Seguros de la Nación" />
-                    </a>
+                    <div class="ssn-wrapper">
+                        <a href="https://www.argentina.gob.ar/superintendencia-de-seguros" target="_blank" rel="noopener noreferrer">
+                            <img src="/SSN_Argentina_logo.png" alt="Superintendencia de Seguros de la Nación" />
+                        </a>
+                    </div>
+                    
+                    <div class="atencion-asegurado">
+                        <p class="atencion-title">Atención al asegurado</p>
+                        <p class="atencion-phone">0800-666-8400</p>
+                        <a href="https://www.argentina.gob.ar/ssn" target="_blank" class="ssn-link">www.argentina.gob.ar/ssn</a>
+                    </div>
                 </div>
             </div>
 
@@ -32,7 +43,6 @@ const currentYear = new Date().getFullYear();
                 <ul>
                     <li><a href="#por-que-elegirnos">Nosotros</a></li>
                     <li><a href="#coberturas">Coberturas</a></li>
-                    <li><a href="#">Testimonios</a></li>
                     <li><a href="/siniestros">Siniestros</a></li>
                     <li><a href="https://wa.me/5491162959939" target="_blank" class="btn-transparent">Contacto</a></li>
                 </ul>
@@ -41,22 +51,15 @@ const currentYear = new Date().getFullYear();
             <div class="footer-col">
                 <h4>Legales</h4>
                 <ul>
-                    <li><a href="#">Términos y Condiciones</a></li>
-                    <li><a href="#">Políticas de Privacidad</a></li>
-                    <li><a href="#">Defensa del Consumidor</a></li>
-                    <li><a href="http://www.ssn.gob.ar" target="_blank" rel="noopener">Sitio de la SSN</a></li>
+                    <li><a href="#asesoria">Asesoramiento Jurídico</a></li>
+                    <li><a href="https://www.argentina.gob.ar/economia/industria-y-comercio/defensadelconsumidor" target="_blank" rel="noopener">Defensa del Consumidor</a></li>
+                    <li><a href="https://www.argentina.gob.ar/superintendencia-de-seguros" target="_blank" rel="noopener">Sitio de la SSN</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <ul class="contact-list">
-                    <li>
-                        <div class="icon-box">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        </div>
-                        <span>Av. del Libertador 1000,<br>Buenos Aires, Argentina</span>
-                    </li>
                     <li>
                         <div class="icon-box">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -78,14 +81,11 @@ const currentYear = new Date().getFullYear();
             <p>&copy; {currentYear} Vanguardia Seguros. Todos los derechos reservados.</p>
             
             <div class="social-links">
-                <a href="#" aria-label="Instagram">
+                <a href="https://www.instagram.com/tuseguroar_/" target="_blank" aria-label="Instagram">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </a>
-                <a href="#" aria-label="Facebook">
+                <a href="https://www.facebook.com/profile.php?id=61566794156998" target="_blank" aria-label="Facebook">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                </a>
-                <a href="#" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
             </div>
         </div>
@@ -96,16 +96,10 @@ const currentYear = new Date().getFullYear();
 <style>
     /* BASE */
     .site-footer {
-        /* CAMBIO CLAVE: Usamos tu azul corporativo */
-        background-color: var(--primary); 
-        
-        /* Ajustamos el texto para que sea un blanco suave, no gris pizarra */
-        color: rgba(255, 255, 255, 0.8); 
-        
+        background-color: var(--primary);
+        color: rgba(255, 255, 255, 0.8);
         padding: 5rem 0 2rem 0;
         font-size: 0.95rem;
-        
-        /* Borde superior sutil */
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -115,26 +109,38 @@ const currentYear = new Date().getFullYear();
         grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
         gap: 4rem;
         margin-bottom: 4rem;
-        
-        /* Línea separadora sutil en blanco transparente */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         padding-bottom: 3rem;
     }
 
-    /* COLUMNA MARCA */
-    .logo-wrapper {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 1.5rem;
-        /* El logo inverted=true se verá perfecto sobre el fondo azul */
+    .logo-container {
+        margin-bottom: 1rem;
+        height: auto;
+        filter: drop-shadow(0 0 15px rgba(255,255,255,0.1)); 
+        animation: pulseLogo 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }   
+
+    .footer-logo {
+        /* Altura fija y pequeña para que se vea elegante */
+        height: 70px; 
+        width: auto;
+        object-fit: contain;
+        display: block;
     }
 
     .brand-tagline {
         line-height: 1.6;
-        margin-bottom: 1.5rem;
         font-size: 0.9rem;
         max-width: 300px;
-        color: rgba(255, 255, 255, 0.9); /* Un poco más brillante */
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* --- BLOQUE LEGAL (Matrícula, SSN, Atención) --- */
+    .legal-block {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem; /* ESPACIO CLAVE entre elementos */
+        align-items: flex-start;
     }
 
     .matricula-box {
@@ -147,9 +153,54 @@ const currentYear = new Date().getFullYear();
         background: rgba(255, 255, 255, 0.05);
     }
 
+    .ssn-wrapper {
+        background-color: white;
+        padding: 6px 10px;
+        border-radius: 6px;
+        display: inline-block;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+        min-width: 180px; /* Ancho mínimo controlado */
+        text-align: center;
+    }
+    
+    .ssn-wrapper:hover { transform: translateY(-2px); }
+    
+    .ssn-wrapper img { 
+        display: block; 
+        height: 30px; /* Un pelín más chico que antes (era 48px o 50px) */
+        width: auto; 
+        object-fit: contain; 
+        margin: 0 auto;
+    }
+
+    /* Texto de atención al asegurado */
+    .atencion-asegurado {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    .atencion-title {
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+        font-weight: 500;
+    }
+    .atencion-phone {
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        margin: 2px 0;
+    }
+    .ssn-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.8rem;
+    }
+    .ssn-link:hover { text-decoration: underline; }
+
+
     /* COLUMNAS LINKS */
     h4 {
-        color: white; /* Blanco puro para títulos */
+        color: white;
         font-size: 1.1rem;
         font-weight: 700;
         margin-bottom: 1.5rem;
@@ -160,14 +211,14 @@ const currentYear = new Date().getFullYear();
     .footer-col li { margin-bottom: 0.8rem; }
 
     .footer-col a {
-        color: rgba(255, 255, 255, 0.7); /* Blanco con transparencia */
+        color: rgba(255, 255, 255, 0.7);
         transition: all 0.2s ease;
         text-decoration: none;
     }
 
     .footer-col a:hover {
-        color: var(--accent); /* Celeste brillante al pasar el mouse */
-        padding-left: 5px; /* Pequeño movimiento pro */
+        color: var(--accent);
+        padding-left: 5px;
     }
 
     /* CONTACT LIST */
@@ -181,14 +232,11 @@ const currentYear = new Date().getFullYear();
 
     .icon-box {
         margin-top: 3px;
-        color: var(--accent); /* Iconos en celeste */
+        color: var(--accent); 
         flex-shrink: 0;
     }
 
-    .hover-link:hover {
-        color: white;
-        text-decoration: underline;
-    }
+    .hover-link:hover { color: white; text-decoration: underline; }
 
     /* BOTTOM BAR */
     .footer-bottom {
@@ -198,14 +246,9 @@ const currentYear = new Date().getFullYear();
         padding-top: 1rem;
     }
     
-    .footer-bottom p {
-        color: rgba(255, 255, 255, 0.5); /* Copyright más sutil */
-    }
+    .footer-bottom p { color: rgba(255, 255, 255, 0.5); }
 
-    .social-links {
-        display: flex;
-        gap: 1rem;
-    }
+    .social-links { display: flex; gap: 1rem; }
 
     .social-links a {
         color: white;
@@ -215,13 +258,13 @@ const currentYear = new Date().getFullYear();
         justify-content: center;
         width: 40px; height: 40px;
         border-radius: 50%;
-        background: rgba(255,255,255,0.1); /* Fondo blanco semitransparente */
+        background: rgba(255,255,255,0.1);
         border: 1px solid rgba(255,255,255,0.1);
     }
 
     .social-links a:hover {
-        background: var(--accent); /* Fondo Celeste al hover */
-        color: var(--primary); /* Icono azul oscuro al hover */
+        background: var(--accent);
+        color: var(--primary);
         border-color: var(--accent);
         transform: translateY(-3px);
     }
@@ -235,51 +278,15 @@ const currentYear = new Date().getFullYear();
         }
 
         .footer-brand, .footer-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
         }
         
         .brand-tagline { max-width: 100%; }
 
-        .contact-list li {
-            justify-content: center;
-            text-align: center; /* Alineación central de texto de contacto */
-        }
+        .legal-block { align-items: center; } /* Centrar en mobile */
 
-        .footer-bottom {
-            flex-direction: column;
-            gap: 1.5rem;
-            text-align: center;
-        }
-    }
+        .contact-list li { justify-content: center; text-align: center; }
 
-    /* CONTENEDOR LOGO SSN */
-    .ssn-wrapper {
-        margin-top: 1.5rem; /* Separación de la matrícula */
-        background-color: white; /* Fondo blanco para que el logo se vea bien */
-        padding: 10px 15px;
-        border-radius: 8px; /* Bordes suaves */
-        display: inline-block; /* Que ocupe solo lo necesario */
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombrita sutil para despegarlo del fondo */
-        transition: transform 0.2s ease;
-    }
-
-    .ssn-wrapper:hover {
-        transform: translateY(-2px); /* Pequeño efecto al pasar el mouse */
-    }
-
-    .ssn-wrapper img {
-        display: block;
-        height: 35px; /* Altura controlada, ajustala según tu logo */
-        width: auto;
-        object-fit: contain;
-    }
-
-    /* Ajuste Mobile: Centrarlo si colapsa */
-    @media (max-width: 900px) {
-        .ssn-wrapper {
-            margin-top: 2rem;
-        }
+        .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
     }
 </style>

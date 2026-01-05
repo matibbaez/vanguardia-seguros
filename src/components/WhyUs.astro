@@ -27,7 +27,9 @@
                     <div class="chat-bubble bot delayed">¡Dale! Es un Toyota Corolla 2023?</div>
                     
                     <div class="chat-notification">
-                        <div class="icon-check">✓</div>
+                        <div class="icon-check">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
                         <span>Presupuesto listo en 2 min</span>
                     </div>
                 </div>
@@ -36,7 +38,7 @@
             <div class="bento-item item-square reveal reveal-delay-2" id="asesoria">
                 <div class="content flex-col h-full justify-between">
                     <div>
-                        <div class="icon-box-soft">⚖️</div>
+                        ⚖️
                         <h3>Asesoramiento Jurídico</h3>
                         <p class="text-muted text-sm">Nuestro equipo legal te respalda sin costo adicional.</p>
                     </div>
@@ -67,17 +69,25 @@
                     
                     <div class="steps-visual">
                         <div class="step">
-                            <div class="step-icon">💥</div>
+                            <div class="step-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12a6 6 0 0 0 6 6h7a6 6 0 0 0 6-6c0-1.5-.7-2.9-2-4z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="m14.5 5.5-3.5 3.5"/><path d="m11 5.5 3.5 3.5"/></svg>
+                            </div>
                             <span>Choque</span>
                         </div>
                         <div class="step-line"></div>
+                        
                         <div class="step">
-                            <div class="step-icon">📸</div>
+                            <div class="step-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                            </div>
                             <span>Foto</span>
                         </div>
                         <div class="step-line"></div>
+                        
                         <div class="step">
-                            <div class="step-icon active">🛡️</div>
+                            <div class="step-icon active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                            </div>
                             <span>Solución</span>
                         </div>
                     </div>
@@ -151,7 +161,7 @@
     }
     
     .badge-tech {
-        display: inline-block;
+        display: inline-block; /* Mantenemos inline-block para el emoji */
         background: rgba(255,255,255,0.1); padding: 4px 12px;
         border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem;
         border: 1px solid rgba(255,255,255,0.2);
@@ -194,22 +204,28 @@
         box-shadow: 0 10px 20px rgba(255, 102, 0, 0.25);
         opacity: 0; animation: slideUp 0.5s forwards 3.5s; z-index: 10;
     }
+    
+    .icon-check {
+        display: flex; align-items: center; justify-content: center;
+    }
 
     /* --- ITEM 2: SOPORTE --- */
     .h-full { height: 100%; }
     .justify-between { justify-content: space-between; }
     .flex-col { display: flex; flex-direction: column; }
     .text-sm { font-size: 0.9rem; }
-    .icon-box-soft { font-size: 2rem; margin-bottom: 0.5rem; }
+    
+    .icon-box-soft { 
+        display: flex; align-items: center; justify-content: flex-start;
+        color: var(--accent);
+        margin-bottom: 1rem; 
+    }
 
     .support-profile {
         display: flex; align-items: center; gap: 15px;
         background: #f1f5f9; padding: 12px; border-radius: 16px; margin-top: 1rem;
     }
 
-    .avatar-group { position: relative; width: 50px; height: 50px; flex-shrink: 0; }
-    .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid white; }
-    .status-dot { width: 12px; height: 12px; background: #22c55e; border-radius: 50%; border: 2px solid white; position: absolute; bottom: 2px; right: 0; }
     .support-info strong { display: block; font-size: 0.95rem; color: var(--text-main); line-height: 1.2; }
     .support-info span { font-size: 0.8rem; color: #16a34a; font-weight: 700; }
 
@@ -219,8 +235,24 @@
     .wide-content { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
     .steps-visual { display: flex; align-items: center; gap: 5px; }
     .step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .step-icon { width: 40px; height: 40px; background: white; border: 1px solid #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 1; }
-    .step-icon.active { background: var(--primary); color: white; border-color: var(--primary); }
+    
+    .step-icon { 
+        width: 40px; height: 40px; 
+        background: white; 
+        border: 1px solid #e2e8f0; 
+        border-radius: 50%; 
+        display: flex; align-items: center; justify-content: center; 
+        color: var(--text-muted); /* Color por defecto */
+        z-index: 1; 
+        transition: all 0.3s;
+    }
+    
+    .step-icon.active { 
+        background: var(--primary); 
+        color: white; 
+        border-color: var(--primary); 
+    }
+    
     .step span { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); }
     .step-line { flex-grow: 1; height: 2px; background: #e2e8f0; width: 25px; margin-bottom: 20px; }
 

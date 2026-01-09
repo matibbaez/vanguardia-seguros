@@ -1,6 +1,4 @@
 ---
-import Logo from './Logo.astro';
-
 const links = [
   { name: 'Inicio', href: '/' },
   { name: 'Qué hacer', href: '#pasos' },
@@ -12,9 +10,8 @@ const links = [
   
   <div class="top-bar urgency-mode">
     <div class="container flex-center h-full">
-      <div class="top-center">
-        <span>¿Necesitás ayuda inmediata? 🚨</span>
-        <a href="tel:08005559000" class="phone-link">Llamanos al 0800-555-9000</a>
+      <div class="emergency-message">
+        <a href="tel:08005559000" class="phone-link"><span>🚨 ¿Necesitás ayuda inmediata?</span></a>
       </div>
     </div>
   </div>
@@ -23,10 +20,11 @@ const links = [
     <div class="container flex-between nav-inner">
       
       <a href="/" class="brand-link">
-        <div class="logo-box">
-          <Logo />
-        </div>
-        <span class="brand-text">Vanguardia</span>
+        <img 
+          src="/logoVanguardiaNuevo.png" 
+          alt="Vanguardia Asesores de Seguros" 
+          class="main-logo"
+        />
       </a>
 
       <nav class="desktop-nav">
@@ -79,88 +77,132 @@ const links = [
 </header>
 
 <script>
-  // Script Idéntico al original para mantener la funcionalidad
-  const header = document.getElementById('main-header');
-  const toggleBtn = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const body = document.body;
+  document.addEventListener('astro:page-load', () => {
 
-  if (header && toggleBtn && mobileMenu) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        header.classList.add('is-scrolled');
-      } else {
-        header.classList.remove('is-scrolled');
-      }
-    });
+    const header = document.getElementById('main-header');
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const body = document.body;
 
-    toggleBtn.addEventListener('click', () => {
-      const isOpen = header.classList.toggle('menu-open');
-      if (isOpen) {
-        body.style.overflow = 'hidden';
-      } else {
-        body.style.overflow = '';
-      }
-    });
-
-    const links = mobileMenu.querySelectorAll('a');
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        header.classList.remove('menu-open');
-        body.style.overflow = '';
+    if (header && toggleBtn && mobileMenu) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          header.classList.add('is-scrolled');
+        } else {
+          header.classList.remove('is-scrolled');
+        }
       });
-    });
-  }
+
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = header.classList.toggle('menu-open');
+        if (isOpen) {
+          body.style.overflow = 'hidden';
+        } else {
+          body.style.overflow = '';
+        }
+      });
+
+      const links = mobileMenu.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          header.classList.remove('menu-open');
+          body.style.overflow = '';
+        });
+      });
+    }
+  });
 </script>
 
 <style>
-  /* --- ESTILOS BASE (Copiados de Navbar.astro) --- */
+  /* --- LAYOUT GENERAL --- */
   #main-header {
-    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; z-index: 1000;
     font-family: var(--font-body);
+    transition: transform 0.3s ease;
   }
 
-  /* TOP BAR ESPECIAL */
+  /* --- 1. TOP BAR (URGENCIA) --- */
   .top-bar {
-    background-color: #ef4444; /* ROJO URGENCIA */
-    color: white; height: 40px; font-size: 0.85rem;
-    overflow: hidden; transition: margin-top 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    position: relative; z-index: 1006;
+    background-color: #ef4444; /* Rojo Urgencia */
+    color: white;
+    min-height: 44px;
+    font-size: 0.95rem;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1006;
+    display: flex; align-items: center; justify-content: center;
   }
-  .h-full { height: 100%; display: flex; align-items: center; justify-content: center; }
-  .top-center { display: flex; gap: 1rem; font-weight: 600; }
-  .phone-link { font-weight: 800; color: white; text-decoration: underline; }
 
-  /* NAV WRAPPER */
-  .nav-wrapper {
-    background: transparent; border-bottom: 1px solid transparent;
-    transition: all 0.4s ease; position: relative; z-index: 1005;
+  .emergency-message {
+    display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;
+    text-align: center; line-height: 1.4; padding: 5px 0;
   }
+
+  .phone-link {
+    font-weight: 800; 
+    color: white; 
+    text-decoration: none; /* CAMBIO: Sin subrayado */
+    transition: opacity 0.2s;
+  }
+  
+  .phone-link:hover { opacity: 0.9; }
+
+  .h-full { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; }
+
+  /* --- 2. MAIN NAV --- */
+  .nav-wrapper {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1005;
+  }
+
+  /* ESTADO SCROLLED */
   #main-header.is-scrolled .nav-wrapper {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(16px);
     box-shadow: 0 4px 30px rgba(0,0,0,0.05);
   }
-  #main-header.is-scrolled .top-bar { margin-top: -40px; }
+  
+  /* ESCONDER TOP BAR AL SCROLLEAR */
+  #main-header.is-scrolled .top-bar { 
+    height: 0; min-height: 0; opacity: 0; padding: 0; pointer-events: none;
+  }
 
-  .nav-inner { height: 90px; transition: height 0.4s ease; }
+  .nav-inner {
+    height: 90px;
+    transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding-left: 1.5rem; padding-right: 1.5rem; 
+  }
   #main-header.is-scrolled .nav-inner { height: 70px; }
 
-  /* LOGO */
-  .logo-box { width: 45px; height: 45px; transition: transform 0.3s ease; }
-  .logo-box :global(svg) { width: 100%; height: 100%; object-fit: contain; }
-  #main-header.is-scrolled .logo-box { transform: scale(0.9); }
-  .brand-link { text-decoration: none; display: flex; align-items: center; gap: 10px; }
-  .brand-text { font-size: 1.4rem; font-weight: 800; color: var(--primary); letter-spacing: -0.03em; }
+  /* LOGO (Igual al principal) */
+  .brand-link { text-decoration: none; display: flex; align-items: center; height: 100%; }
+  
+  .main-logo {
+    height: 60px; /* Altura Desktop Base */
+    width: auto;  
+    object-fit: contain;
+    transition: height 0.3s ease;
+  }
+  #main-header.is-scrolled .main-logo { height: 45px; }
 
-  /* NAV */
+  /* NAV LINKS */
   .nav-list { display: flex; gap: 2rem; }
-  .nav-item { font-weight: 500; color: var(--text-main); position: relative; padding: 5px 0; }
+  .nav-item { 
+    font-weight: 500; color: var(--text-main); position: relative; padding: 5px 0; 
+  }
   .nav-item:hover { color: var(--primary); }
+
   .link-underline {
     position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
-    background-color: #ef4444; /* Rojo en hover */
-    transition: all 0.3s ease; transform: translateX(-50%);
+    background-color: #ef4444; /* Rojo para Siniestros */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateX(-50%); border-radius: 2px;
   }
   .nav-item:hover .link-underline { width: 100%; }
 
@@ -168,10 +210,10 @@ const links = [
   .desktop-actions { display: flex; align-items: center; gap: 1rem; }
   
   .btn-quote {
-    background: var(--primary); color: white; padding: 10px 24px; border-radius: 50px;
+    color: white; padding: 10px 24px; border-radius: 50px;
     font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
-  /* Estilo especial URGENCIA */
+  
   .btn-urgency {
     background-color: #ef4444 !important; /* Rojo */
   }
@@ -181,10 +223,21 @@ const links = [
     box-shadow: 0 8px 15px rgba(239, 68, 68, 0.3);
   }
 
+  .btn-login { font-weight: 600; color: var(--primary); padding: 8px 16px; transition: color 0.2s; }
+  .btn-login:hover { color: var(--primary-hover); }
+
   /* HAMBURGUESA */
-  .mobile-toggle { display: none; background: none; border: none; cursor: pointer; width: 30px; height: 30px; }
+  .mobile-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; padding: 0;
+    width: 30px; height: 30px; align-items: center; justify-content: center;
+  }
   .hamburger-box { width: 26px; height: 20px; position: relative; }
-  .line { position: absolute; left: 0; width: 100%; height: 2px; background-color: var(--primary); transition: 0.4s; }
+  .line {
+    position: absolute; left: 0; width: 100%; height: 2px;
+    background-color: var(--primary); border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
   .line-top { top: 0; }
   .line-middle { top: 50%; transform: translateY(-50%); }
   .line-bottom { bottom: 0; }
@@ -195,30 +248,51 @@ const links = [
 
   /* MOBILE MENU */
   .mobile-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: white; z-index: 1004;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: white; z-index: 1004;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
   }
   .menu-open .mobile-overlay { opacity: 1; pointer-events: all; }
-  
+
   .mobile-content { width: 100%; display: flex; flex-direction: column; align-items: center; }
-  .mobile-links-list { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
-  
+  .mobile-links-list { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; width: 100%; }
+
   .mobile-link {
-    font-size: 1.8rem; font-weight: 700; color: var(--text-main); opacity: 0; transform: translateY(20px);
-    transition: 0.4s ease;
+    font-size: 1.8rem; font-weight: 700; color: var(--text-main);
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s;
   }
   .menu-open .mobile-link { opacity: 1; transform: translateY(0); transition-delay: var(--delay); }
-  
+  .mobile-link:hover { color: var(--primary); }
+
   .mobile-actions { width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; opacity: 0; transform: translateY(20px); transition: 0.5s ease; }
   .menu-open .mobile-actions { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
   
-  .full-width { display: block; text-align: center; }
-  .btn-login { font-weight: 600; color: var(--primary); padding: 10px; }
+  .full-width { width: 100%; text-align: center; display: block; }
 
+  /* RESPONSIVE */
   @media (max-width: 900px) {
-    .top-bar, .desktop-nav, .desktop-actions { display: none; }
-    .mobile-toggle { display: flex; align-items: center; }
-    #main-header.is-scrolled .top-bar { margin-top: 0; }
+    .desktop-nav, .desktop-actions { display: none !important; }
+    .mobile-toggle { display: flex; align-items: center; margin-left: auto; }
+    
+    #main-header { top: 0; padding-top: env(safe-area-inset-top); }
+
+    /* Top Bar Mobile */
+    .top-bar {
+        font-size: 0.85rem; padding: 0; text-align: center;
+    }
+    
+    /* Al scrollear en mobile, escondemos barra */
+    #main-header.is-scrolled .top-bar { height: 0; min-height: 0; opacity: 0; padding: 0; }
+
+    /* Ajustes Nav */
+    .nav-inner { padding: 0 1.2rem; height: 60px; }
+    
+    /* CAMBIO: Logo a 40px para coincidir exactamente con Navbar.astro */
+    .main-logo { height: 50px; } 
+    
+    #main-header.is-scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    #main-header.is-scrolled .nav-wrapper { box-shadow: none; }
   }
 </style>

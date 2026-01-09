@@ -1,25 +1,27 @@
 ---
 const links = [
   { name: 'Coberturas', href: '/#coberturas' },
-  { name: 'Nosotros', href: '/#por-que-elegirnos' },
   { name: 'Asesoría Legal', href: '/#asesoria' },
+  { name: 'Preguntas Frecuentes', href: '/#faq' },
 ];
 ---
 
 <header id="main-header">
   
   <div class="top-bar">
-    <div class="container flex-between h-full">
-      <div class="top-left">
-        <span class="emergency-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="M12 3v6"/><path d="M12 3h6"/></svg>
-            Urgencias 24hs
-        </span>
-        <a href="tel:08005559000" class="phone-link">0800-555-9000</a>
-      </div>
-      <div class="top-right">
-        <a href="mailto:hola@vanguardia.com" class="text-link">hola@vanguardia.com</a>
-      </div>
+    <div class="container h-full">
+      
+      <p class="promo-message desktop-msg">
+        🔥 <strong>¡Solo por este mes!</strong> 30% OFF asegurando tu Auto + Hogar.
+        <a href="#cotizar" class="promo-link">Aprovechar descuento</a>
+      </p>
+
+      <p class="promo-message mobile-msg">
+        <span class="emoji">🔥</span> 
+        <span class="promo-text"><strong>30% OFF</strong> en Auto + Hogar.</span>
+        <a href="#cotizar" class="promo-link">Aprovechar descuento</a>
+      </p>
+
     </div>
   </div>
 
@@ -87,37 +89,40 @@ const links = [
 </header>
 
 <script>
-  const header = document.getElementById('main-header');
-  const toggleBtn = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const body = document.body;
+  document.addEventListener('astro:page-load', () => {
 
-  if (header && toggleBtn && mobileMenu) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        header.classList.add('is-scrolled');
-      } else {
-        header.classList.remove('is-scrolled');
-      }
-    });
+    const header = document.getElementById('main-header');
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const body = document.body;
 
-    toggleBtn.addEventListener('click', () => {
-      const isOpen = header.classList.toggle('menu-open');
-      if (isOpen) {
-        body.style.overflow = 'hidden';
-      } else {
-        body.style.overflow = '';
-      }
-    });
-
-    const links = mobileMenu.querySelectorAll('a');
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        header.classList.remove('menu-open');
-        body.style.overflow = '';
+    if (header && toggleBtn && mobileMenu) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          header.classList.add('is-scrolled');
+        } else {
+          header.classList.remove('is-scrolled');
+        }
       });
-    });
-  }
+
+      toggleBtn.addEventListener('click', () => {
+        const isOpen = header.classList.toggle('menu-open');
+        if (isOpen) {
+          body.style.overflow = 'hidden';
+        } else {
+          body.style.overflow = '';
+        }
+      });
+
+      const links = mobileMenu.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          header.classList.remove('menu-open');
+          body.style.overflow = '';
+        });
+      });
+    }
+  });
 </script>
 
 <style>
@@ -127,204 +132,171 @@ const links = [
     top: 0; left: 0;
     width: 100%; z-index: 1000;
     font-family: var(--font-body);
-    transition: transform 0.3s ease, background-color 0.3s ease, padding-top 0.3s ease;
+    transition: transform 0.3s ease;
   }
 
-  /* --- 1. TOP BAR --- */
+  /* --- 1. TOP BAR (HÍBRIDA) --- */
   .top-bar {
-    background-color: var(--primary);
+    background: var(--primary); /* Azul oscuro corporativo */
     color: white;
-    height: 44px;
-    font-size: 0.85rem;
-    overflow: hidden;
-    transition: height 0.4s ease, opacity 0.4s ease;
+    font-size: 0.95rem;
     position: relative;
     z-index: 1006;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
   }
-  .h-full { height: 100%; display: flex; align-items: center; }
-  .top-left, .top-right { display: flex; align-items: center; gap: 1.5rem; }
-  
-  /* AJUSTE PARA EL ICONO */
-  .emergency-badge { 
-    background: rgba(255,255,255,0.15); 
-    padding: 4px 10px; 
-    border-radius: 4px; 
-    font-weight: 600; 
-    font-size: 0.75rem;
-    display: flex;       /* Agregado para alinear SVG */
-    align-items: center; /* Agregado para alinear SVG */
-    gap: 6px;            /* Espacio entre icono y texto */
-  } svg { color: var(--accent);}
-  
-  .phone-link { font-weight: 700; color: white; }
-  .text-link:hover { text-decoration: underline; }
+
+  .promo-message {
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
+    padding: 5px 0;
+  }
+
+  /* ESTILOS DESKTOP (Como antes) */
+  .promo-link {
+    color: var(--accent); /* Naranja */
+    font-weight: 800;
+    margin-left: 8px;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .promo-link:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  /* POR DEFECTO: Ocultamos Mobile, Mostramos Desktop */
+  .mobile-msg { display: none; }
+  .desktop-msg { display: block; }
+
+  .h-full { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; }
 
   /* --- 2. MAIN NAV --- */
   .nav-wrapper {
     background: transparent;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     transition: all 0.4s ease;
     position: relative;
     z-index: 1005;
   }
 
-  /* ESTADO SCROLLED (Desktop) */
-  @media (min-width: 901px) {
-      #main-header.is-scrolled .nav-wrapper {
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(16px);
-        box-shadow: 0 4px 30px rgba(0,0,0,0.05);
-      }
-      #main-header.is-scrolled .top-bar { 
-        height: 0;
-        opacity: 0;
-      }
+  /* SCROLL EFFECT */
+  #main-header.is-scrolled .nav-wrapper {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+    border-bottom: none;
+  }
+  
+  /* ESCONDER TOP BAR AL SCROLLEAR */
+  #main-header.is-scrolled .top-bar {
+    height: 0;
+    min-height: 0;
+    opacity: 0;
+    padding: 0;
+    pointer-events: none;
   }
 
   .nav-inner {
     height: 90px;
     transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    padding-left: 1.5rem;
-    padding-right: 1.5rem; 
+    padding: 0 1.5rem;
   }
-  
   #main-header.is-scrolled .nav-inner { height: 70px; }
 
   /* LOGO */
   .brand-link { text-decoration: none; display: flex; align-items: center; height: 100%; }
-  
-  .main-logo {
-    height: 60px; 
-    width: auto;  
-    object-fit: contain;
-    transition: height 0.3s ease;
-  }
-  #main-header.is-scrolled .main-logo { height: 50px; }
+  .main-logo { height: 60px; width: auto; object-fit: contain; transition: height 0.3s; }
+  #main-header.is-scrolled .main-logo { height: 45px; }
 
-  /* LINKS DESKTOP */
+  /* NAV DESKTOP */
   .nav-list { display: flex; gap: 2rem; }
-  .nav-item { 
-    font-weight: 500; color: var(--text-main); position: relative; padding: 5px 0; display: inline-block;
-  }
+  .nav-item { font-weight: 500; color: var(--text-main); position: relative; padding: 5px 0; }
   .nav-item:hover { color: var(--primary); }
-
-  .link-underline {
-    position: absolute; bottom: 0; left: 50%;
-    width: 0; height: 2px;
-    background-color: var(--accent); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    transform: translateX(-50%); border-radius: 2px;
-  }
+  .link-underline { position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: var(--accent); transition: 0.3s; transform: translateX(-50%); }
   .nav-item:hover .link-underline { width: 100%; }
 
-  /* BOTONES */
+  /* ACTIONS */
   .desktop-actions { display: flex; align-items: center; gap: 1rem; }
-  .btn-login { font-weight: 600; color: var(--primary); padding: 8px 16px; transition: color 0.2s; }
-  .btn-login:hover { color: var(--primary-hover); }
-  
   .btn-quote {
-    background: var(--btn-cta);
-    color: white;
-    padding: 10px 24px; border-radius: 50px;
-    font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(255, 102, 0, 0.2);
+    background: var(--btn-cta); color: white; padding: 10px 24px; border-radius: 50px;
+    font-weight: 700; transition: 0.3s; box-shadow: 0 4px 10px rgba(255, 102, 0, 0.2);
   }
-  .btn-quote:hover { 
-    transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3); background: var(--btn-cta-hover);
-  }
+  .btn-quote:hover { transform: translateY(-2px); background: var(--btn-cta-hover); }
 
-  /* --- 4. HAMBURGUESA --- */
-  .mobile-toggle {
-    display: none; background: none; border: none;
-    cursor: pointer; padding: 0;
-    width: 30px; height: 30px; align-items: center; justify-content: center;
-  }
+  /* MOBILE TOGGLE */
+  .mobile-toggle { display: none; background: none; border: none; cursor: pointer; width: 30px; height: 30px; padding: 0; }
   .hamburger-box { width: 26px; height: 20px; position: relative; }
-  .line {
-    position: absolute; left: 0; width: 100%; height: 2px;
-    background-color: var(--primary);
-    border-radius: 4px;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
+  .line { position: absolute; left: 0; width: 100%; height: 2px; background: var(--primary); border-radius: 4px; transition: 0.4s; }
   .line-top { top: 0; }
   .line-middle { top: 50%; transform: translateY(-50%); }
   .line-bottom { bottom: 0; }
-  
   .menu-open .line-top { top: 50%; transform: translateY(-50%) rotate(45deg); }
   .menu-open .line-middle { opacity: 0; }
   .menu-open .line-bottom { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
 
-  /* --- 5. MOBILE MENU --- */
-  .mobile-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100vh;
-    background: white;
-    z-index: 1004;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-  }
+  /* MOBILE MENU OVERLAY */
+  .mobile-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: white; z-index: 1004; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: 0.3s; }
   .menu-open .mobile-overlay { opacity: 1; pointer-events: all; }
-
-  .mobile-content { width: 100%; display: flex; flex-direction: column; align-items: center; }
-  .mobile-links-list { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; width: 100%; }
-
-  .mobile-link {
-    font-size: 1.8rem; font-weight: 700; color: var(--text-main);
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s;
-  }
-
+  .mobile-links-list { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
+  .mobile-link { font-size: 1.8rem; font-weight: 700; color: var(--text-main); opacity: 0; transform: translateY(20px); transition: 0.4s; }
   .menu-open .mobile-link { opacity: 1; transform: translateY(0); transition-delay: var(--delay); }
-  .mobile-link:hover { color: var(--primary); }
-
-  .mobile-actions, .mobile-footer { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
-  .menu-open .mobile-actions { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-  .menu-open .mobile-footer { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-
-  .mobile-actions { width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+  .mobile-actions { width: 100%; max-width: 280px; display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; opacity: 0; transform: translateY(20px); transition: 0.5s; }
+  .menu-open .mobile-actions { opacity: 1; transform: translateY(0); }
   .full-width { width: 100%; text-align: center; display: block; }
-  
-  .mobile-footer { margin-top: 3rem; text-align: center; }
+  .mobile-footer { margin-top: 3rem; text-align: center; opacity: 0; transform: translateY(20px); transition: 0.5s; }
+  .menu-open .mobile-footer { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
   .emergency-btn { color: #ef4444; font-weight: 800; font-size: 1.1rem; display: block; margin-top: 5px; }
 
-  /* RESPONSIVE ESPECIAL MOBILE (FIX SAFARI) */
+  /* --- MEDIA QUERIES --- */
   @media (max-width: 900px) {
-    /* 1. Ocultar componentes desktop por completo */
-    .top-bar, .desktop-nav, .desktop-actions { 
-        display: none !important;
-        height: 0 !important;
-        overflow: hidden;
-    }
+    .desktop-nav, .desktop-actions { display: none !important; }
+    .mobile-toggle { display: flex; align-items: center; margin-left: auto; }
     
-    .mobile-toggle { display: flex; align-items: center; }
+    #main-header { top: 0; padding-top: env(safe-area-inset-top); }
     
-    /* 2. El header siempre arriba + Relleno Notch */
-    #main-header { 
-        top: 0; 
-        padding-top: env(safe-area-inset-top); 
+    /* CAMBIO DE TEXTO MOBILE */
+    .desktop-msg { display: none; } /* Ocultamos el largo */
+    .mobile-msg { display: block; } /* Mostramos el corto */
+
+    .top-bar {
+        font-size: 0.8rem;
+        padding: 0; 
+        text-align: center;
+        background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
     }
 
-    /* 3. Fondo blanco APLICADO AL PADRE al scrollear */
-    #main-header.is-scrolled {
-        background: rgba(255, 255, 255, 0.98); 
-        backdrop-filter: blur(16px);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    .promo-message {
+        padding: 8px 15px;
+        width: 100%;
     }
 
-    /* 4. Quitamos fondo al hijo para evitar doble capa */
-    #main-header.is-scrolled .nav-wrapper {
-        background: transparent !important;
-        box-shadow: none !important;
+    /* Estilo BOTÓN PÍLDORA solo para mobile */
+    .promo-link-mobile {
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 3px; 
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        text-decoration: none;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.25);
+        color: #fbbf24; 
+        font-weight: 700;
+        vertical-align: middle;
     }
+
+    /* Ajustes Nav */
+    .nav-inner { padding: 0 1.2rem; height: 60px; }
+    .main-logo { height: 50px; }
     
-    .main-logo { 
-      height: 60px;
-      max-width: 180px; 
-    } 
-    
-    .nav-inner {
-        padding-left: 1.2rem;
-        padding-right: 1.2rem;
-        /* Asegurar altura consistente */
-        height: 70px;
-    }
+    #main-header.is-scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    #main-header.is-scrolled .nav-wrapper { box-shadow: none; }
   }
 </style>

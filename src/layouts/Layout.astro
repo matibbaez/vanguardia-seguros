@@ -1,11 +1,14 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import NavbarSiniestros from '../components/NavbarSiniestros.astro';
 import Footer from '../components/Footer.astro';
 import QuoteModal from '../components/QuoteModal.astro';
 import WhatsappButton from '../components/WhatsAppButton.astro';
+// 1. IMPORTANTE: Importamos el router para transiciones
+import { ClientRouter } from 'astro:transitions';
 
-const { title } = Astro.props;
+const { title, isSiniestros = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -24,6 +27,8 @@ const { title } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script is:inline src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <ClientRouter />
 
     <style is:global>
         html.lenis, html.lenis body { height: auto; }
@@ -48,15 +53,26 @@ const { title } = Astro.props;
         </div>
     </div>
 
-    <Navbar />
+    {
+        isSiniestros ? <NavbarSiniestros /> : <Navbar />
+    }
+
+    <main style="padding-top: var(--header-height); min-height: 80vh;">
+        <slot />
+    </main>
+
+    <Footer />
+    <QuoteModal />
+    <WhatsappButton />
 
     <script is:inline>
-        window.addEventListener('load', () => {
+        // Función de inicialización que corre en cada navegación
+        function initPage() {
+            
+            // --- A. PRELOADER ---
             const preloader = document.getElementById('preloader');
             if (preloader) {
-                // Verificamos si ya visitó en esta sesión para no mostrarlo siempre
                 const hasVisited = sessionStorage.getItem('vanguardia_visited');
-
                 if (!hasVisited) {
                     setTimeout(() => {
                         preloader.style.opacity = '0';
@@ -69,66 +85,56 @@ const { title } = Astro.props;
                     preloader.style.display = 'none';
                 }
             }
-        });
-    </script>
 
-    <main style="padding-top: var(--header-height); min-height: 80vh;">
-        <slot />
-    </main>
-
-    <Footer />
-    <QuoteModal />
-    <WhatsappButton />
-
-    <script is:inline>
-        document.addEventListener("DOMContentLoaded", () => {
+            // --- B. LENIS (SCROLL SUAVE) ---
             if (typeof Lenis !== 'undefined') {
-                const lenis = new Lenis({
+                // Importante: Destruir instancia anterior si existe para evitar conflictos
+                if (window.lenis) window.lenis.destroy();
+
+                window.lenis = new Lenis({
                     duration: 1.2,
                     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                     smooth: true,
                 });
 
                 function raf(time) {
-                    lenis.raf(time);
+                    window.lenis.raf(time);
                     requestAnimationFrame(raf);
                 }
                 requestAnimationFrame(raf);
-
-                // LÓGICA INTELIGENTE PARA LINKS
-                document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        const href = this.getAttribute('href');
-                        // Separamos ruta y hash (ej: /#coberturas -> ["/", "coberturas"])
-                        const [pathname, hash] = href.split('#');
-                        
-                        if (!hash) return; // Si no tiene hash, no hacemos nada
-
-                        // Verificamos si el link apunta a la página actual
-                        const currentPath = window.location.pathname;
-                        // Es la misma página si el path es vacío, es '/' estando en home, o es igual al actual
-                        const isSamePage = pathname === '' || (pathname === '/' && currentPath === '/') || pathname === currentPath;
-
-                        if (isSamePage) {
-                            // Estamos en la misma página: Scroll suave
-                            e.preventDefault();
-                            const targetElement = document.getElementById(hash);
-                            if(targetElement){
-                                lenis.scrollTo(targetElement, {
-                                    offset: -80, 
-                                    duration: 1.5
-                                });
-                                // Actualizar URL sin recargar
-                                history.pushState(null, null, '#' + hash);
-                            }
-                        }
-                        // Si NO es la misma página, el navegador seguirá el link normalmente (ej: ir de Siniestros a Home)
-                    });
-                });
-
-                console.log("Lenis iniciado correctamente 🚀");
+                
+                console.log("Lenis reiniciado 🚀");
             }
-        });
+
+            // --- C. LINKS INTERNOS ---
+            document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    const [pathname, hash] = href.split('#');
+                    
+                    if (!hash) return;
+
+                    const currentPath = window.location.pathname;
+                    // Lógica para saber si es la misma página
+                    const isSamePage = pathname === '' || (pathname === '/' && currentPath === '/') || pathname === currentPath;
+
+                    if (isSamePage) {
+                        e.preventDefault();
+                        const targetElement = document.getElementById(hash);
+                        if(targetElement && window.lenis){
+                            window.lenis.scrollTo(targetElement, {
+                                offset: -80, 
+                                duration: 1.5
+                            });
+                            history.pushState(null, null, '#' + hash);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Ejecutar en la carga inicial Y en cada transición de página
+        document.addEventListener('astro:page-load', initPage);
     </script>
 </body>
 </html>

@@ -7,7 +7,8 @@ import Layout from '../layouts/Layout.astro';
     <div class="content reveal">
       <span class="big-404">404</span>
       <h1>Ups... chocaste con un <span class="text-gradient">link roto</span></h1>
-      <p>No te preocupes, no hace falta llamar a la grúa. Volvamos al camino seguro.</p>
+      <p>No te preocupes, no hace falta llamar a la grúa.
+      Volvamos al camino seguro.</p>
       
       <a href="/" class="btn-home">
         Volver al Inicio
@@ -18,12 +19,22 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   .error-container {
-    height: 80vh;
+    /* Usamos min-height para evitar problemas en celulares pequeños */
+    min-height: 100vh;
+    
+    /* El truco del margen negativo para cubrir el header */
+    margin-top: calc(var(--header-height) * -1);
+    
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     background: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
+    
+    /* Padding generoso para que no se pegue a los bordes en mobile */
+    padding: 80px 1.5rem 2rem 1.5rem;
+    position: relative;
+    z-index: 1;
   }
 
   .big-404 {
@@ -35,8 +46,8 @@ import Layout from '../layouts/Layout.astro';
     display: block;
   }
 
-  h1 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800; }
-  p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; }
+  h1 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800; line-height: 1.2; }
+  p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; max-width: 500px; margin-left: auto; margin-right: auto; }
 
   .btn-home {
     display: inline-block;
@@ -46,6 +57,39 @@ import Layout from '../layouts/Layout.astro';
     border-radius: 50px;
     font-weight: 700;
     transition: transform 0.2s;
+    text-decoration: none; /* Importante para que no se subraye */
   }
   .btn-home:hover { transform: translateY(-3px); background: var(--primary-hover); }
+
+  /* Animación simple */
+  .reveal {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- AJUSTES MOBILE (RESPONSIVE) --- */
+  @media (max-width: 768px) {
+    .big-404 {
+      font-size: 5rem; /* Más chico para que entre en pantalla */
+    }
+    
+    h1 {
+      font-size: 1.8rem; /* Título más controlado */
+    }
+    
+    p {
+      font-size: 1rem;
+      padding: 0 10px; /* Margen de seguridad */
+    }
+    
+    .error-container {
+      /* Ajuste fino del padding superior para compensar el header móvil */
+      padding-top: 100px; 
+    }
+  }
 </style>

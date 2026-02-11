@@ -19,6 +19,7 @@ const { title, isSiniestros = false } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/LogoVanguardiaBlanco.png" /> 
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     
     <title>{title}</title>
 
@@ -42,6 +43,7 @@ const { title, isSiniestros = false } = Astro.props;
     <meta property="og:title" content="Vanguardia Seguros | El futuro es seguro" />
     <meta property="og:description" content="Cotizá tu seguro de auto u hogar en 2 minutos. Atención personalizada y respaldo de compañías líderes." />
     <meta property="og:image" content="/social-image.jpg" />
+    <meta name="google-site-verification" content="RqNmL953AXueu2HWUoLTbZBi6PTCE6vslNhx_kAO0T8" />
 </head>
 <body>
 

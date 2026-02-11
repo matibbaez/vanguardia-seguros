@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vanguardiaseguros.com.ar/sitemap-index.xml
